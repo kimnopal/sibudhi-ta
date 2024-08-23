@@ -1,113 +1,144 @@
-import { FormEventHandler } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { FormEventHandler } from "react";
+import GuestLayout from "@/Layouts/GuestLayout";
+import InputError from "@/components/InputError";
+import InputLabel from "@/components/InputLabel";
+import PrimaryButton from "@/components/PrimaryButton";
+import TextInput from "@/components/TextInput";
+import { Head, Link } from "@inertiajs/react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+const formSchema = z.object({
+    name: z
+        .string({ message: "" })
+        .min(2, { message: "" })
+        .max(50, { message: "" }),
+    email: z
+        .string({ message: "" })
+        .email({ message: "" })
+        .min(2, { message: "" })
+        .max(50, { message: "" }),
+    nik: z
+        .string({ message: "" })
+        .min(16, { message: "" })
+        .max(16, { message: "" })
+        .regex(/\d+/),
+    password: z
+        .string({
+            message: "",
+        })
+        .min(8, {
+            message: "",
+        })
+        .max(50, { message: "" }),
+});
 
 export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            email: "",
+            password: "",
+        },
     });
 
-    const submit: FormEventHandler = (e) => {
-        e.preventDefault();
-
-        post(route('register'), {
-            onFinish: () => reset('password', 'password_confirmation'),
-        });
-    };
+    function onSubmit(values: z.infer<typeof formSchema>) {
+        // Do something with the form values.
+        // ✅ This will be type-safe and validated.
+        console.log(values);
+    }
 
     return (
         <GuestLayout>
             <Head title="Register" />
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
+            <h2 className="font-bold text-xl text-center">
+                Daftar Sekarang! <br /> Dapatkan Layanan Hukum Terbaik!
+            </h2>
 
-                    <TextInput
-                        id="name"
+            <Form {...form}>
+                <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="w-full max-w-sm flex flex-col gap-4"
+                >
+                    <FormField
+                        control={form.control}
                         name="name"
-                        value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Nama Lengkap</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="Tuliskan nama lengkapp anda"
+                                        {...field}
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
                     />
-
-                    <InputError message={errors.name} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
+                    <FormField
+                        control={form.control}
                         name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="Tuliskan email anda"
+                                        {...field}
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
                     />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
+                    <FormField
+                        control={form.control}
+                        name="nik"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>NIK</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="Tuliskan NIK anda"
+                                        {...field}
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
                         name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                        required
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Password</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="Tuliskan password anda"
+                                        type="password"
+                                        {...field}
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
                     />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Already registered?
-                    </Link>
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Register
-                    </PrimaryButton>
-                </div>
-            </form>
+                    <Button type="submit">Daftar</Button>
+                    <p className="font-medium text-center">
+                        Sudah memiliki akun?{" "}
+                        <span className="text-secondary">Masuk Disini</span>
+                    </p>
+                </form>
+            </Form>
         </GuestLayout>
     );
 }
