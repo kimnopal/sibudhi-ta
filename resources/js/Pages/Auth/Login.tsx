@@ -1,69 +1,111 @@
 import { FormEventHandler } from "react";
-import Checkbox from "@/Components/Checkbox";
 import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm, usePage } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+} from "@/components/ui/form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+const formSchema = z.object({
+    email: z
+        .string({ message: "" })
+        .email({ message: "" })
+        .min(2, { message: "" })
+        .max(50, { message: "" }),
+    password: z
+        .string({
+            message: "",
+        })
+        .min(8, {
+            message: "",
+        })
+        .max(50, { message: "" }),
+});
 
 export default function Login({
     status,
     canResetPassword,
-    session,
 }: {
     status?: string;
     canResetPassword: boolean;
-    session?: any;
 }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        email: "",
-        password: "",
-        remember: false,
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            email: "",
+            password: "",
+        },
     });
 
-    const submit: FormEventHandler = (e) => {
-        e.preventDefault();
-
-        post(route("doLogin"), {
-            onFinish: () => reset("password"),
-        });
-    };
+    function onSubmit(values: z.infer<typeof formSchema>) {
+        // Do something with the form values.
+        // ✅ This will be type-safe and validated.
+        console.log(values);
+    }
 
     return (
         <GuestLayout>
             <Head title="Log in" />
+<<<<<<< HEAD
+            {status && (
+                <div className="mb-4 font-medium text-sm text-green-600">
+                    {status}
+                </div>
+            )}
+=======
+
+            <h2 className="font-bold text-xl text-center">
+                Selamat Datang Kembali! <br /> Akses Layanan Hukum Anda dengan
+                Mudah dan Cepat
+            </h2>
+>>>>>>> 131688a3af68c95daf7b676308d4f6d4bae2b0a9
+
             {status && (
                 <div className="mb-4 font-medium text-sm text-green-600">
                     {status}
                 </div>
             )}
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
+            <Form {...form}>
+                <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="w-full max-w-sm flex flex-col gap-4"
+                >
+                    <FormField
+                        control={form.control}
                         name="email"
+<<<<<<< HEAD
                         value={data.email}
                         className="mt-1 block w-full"
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData("email", e.target.value)}
+=======
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="yourname@example.com"
+                                        {...field}
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
+>>>>>>> 131688a3af68c95daf7b676308d4f6d4bae2b0a9
                     />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
+                    <FormField
+                        control={form.control}
                         name="password"
+<<<<<<< HEAD
                         value={data.password}
                         className="mt-1 block w-full"
                         autoComplete="current-password"
@@ -103,6 +145,31 @@ export default function Login({
                     </PrimaryButton>
                 </div>
             </form>
+=======
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Password</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="********"
+                                        type="password"
+                                        {...field}
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
+                    <div className="flex justify-end font-medium text-secondary">
+                        <Link href="/">Lupa Password?</Link>
+                    </div>
+                    <Button type="submit">Masuk</Button>
+                    <p className="font-medium text-center">
+                        Belum memiliki akun?{" "}
+                        <span className="text-secondary">Daftar Disini</span>
+                    </p>
+                </form>
+            </Form>
+>>>>>>> 131688a3af68c95daf7b676308d4f6d4bae2b0a9
         </GuestLayout>
     );
 }
