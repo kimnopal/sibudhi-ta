@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/react";
 
 import { cn } from "@/lib/utils";
 // import { Icons } from "@/components/icons"
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -56,12 +56,39 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 const Navbar = () => {
+    const [active, setActive] = useState("");
+    const [toggle, setToggle] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollTop = window.scrollY;
+            if (scrollTop > 100) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
-        <nav className="fixed top-0 left-0 right-0 bg-primary">
-            <div className="py-2 max-w-[865px] m-auto flex items-center justify-between">
+        <nav
+            className={`fixed top-0 left-0 right-0 ${
+                scrolled ? "bg-background shadow-sm" : "bg-transparent"
+            }`}
+        >
+            <div className="container max-w-screen-lg py-4 m-auto flex items-center justify-between">
                 <div>
-                    <Link href="/">
-                        <img src={Logo} alt="" className="w-32" />
+                    <Link
+                        href="/"
+                        className="flex justify-start items-center gap-4"
+                    >
+                        <img src={Logo} alt="" className="h-12" />
+                        <span className="font-bold text-2xl">SiBudhi</span>
                     </Link>
                 </div>
 
@@ -76,30 +103,33 @@ const Navbar = () => {
                                     <ListItem
                                         href="/docs"
                                         title="Konsultasi Hukum"
-                                    ></ListItem>
+                                    />
                                     <ListItem
                                         href="/docs/installation"
                                         title="Perkara Perdata/Bisnis"
-                                    ></ListItem>
+                                    />
                                     <ListItem
                                         href="/docs/primitives/typography"
                                         title="Perkara Pidana"
-                                    ></ListItem>
+                                    />
                                     <ListItem
                                         href="/docs/primitives/typography"
                                         title="Perkara Tata Usaha Negara"
-                                    ></ListItem>
+                                    />
                                 </ul>
                             </NavigationMenuContent>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
-                            <Link href="/docs" legacyBehavior passHref>
-                                <NavigationMenuLink
-                                    className={navigationMenuTriggerStyle()}
+                            <NavigationMenuLink
+                                className={navigationMenuTriggerStyle()}
+                            >
+                                <Link
+                                    href="/docs"
+                                    className="w-full h-full flex justify-center items-center"
                                 >
-                                    <Button>Sign Up</Button>
-                                </NavigationMenuLink>
-                            </Link>
+                                    <Button variant="link">Sign Up</Button>
+                                </Link>
+                            </NavigationMenuLink>
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>
