@@ -1,12 +1,15 @@
-import Navbar from "@/Components/Navbar";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import { PropsWithChildren } from "react";
 
-const Layout = ({ children }: any) => {
+const Layout = ({ children }: PropsWithChildren) => {
     return (
         <>
             <Navbar />
-            <div className="border border-primary m-auto max-w-[865px] min-h-screen">
-                <main>{children}</main>
-            </div>
+            {/* <div className="container w-full mt-14"> */}
+            <main className="text-foreground">{children}</main>
+            {/* </div> */}
+            <Footer />
         </>
     );
 };

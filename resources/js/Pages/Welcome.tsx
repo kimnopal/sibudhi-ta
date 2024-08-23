@@ -1,7 +1,9 @@
 import { Link, Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
-import { Button } from "@/Components/ui/button";
 import Layout from "@/Layouts/Layout";
+import Hero from "@/Pages/components/Hero";
+import Value from "./components/Value";
+import Service from "./components/Service";
 
 export default function Welcome({
     auth,
@@ -22,8 +24,9 @@ export default function Welcome({
     return (
         <Layout>
             <Head title="Welcome" />
-            <h1>Hello World</h1>
-            <Button variant={"outline"}>Button</Button>
+            <Hero />
+            <Value />
+            <Service />
         </Layout>
     );
 }
