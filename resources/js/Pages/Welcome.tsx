@@ -1,9 +1,9 @@
 import { Link, Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import Layout from "@/Layouts/Layout";
-import Hero from "@/Pages/components/Hero";
-import Value from "./components/Value";
-import Service from "./components/Service";
+import Hero from "@/Components/Hero";
+import Value from "@/Components/Value";
+import Service from "@/Components/Service";
 
 export default function Welcome({
     auth,

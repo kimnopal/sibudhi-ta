@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import React from "react";
+import { Card, CardContent, CardHeader } from "@/Components/ui/card";
 
 interface ServiceItemProps {
     title: string;

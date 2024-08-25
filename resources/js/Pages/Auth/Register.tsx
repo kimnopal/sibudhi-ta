@@ -1,10 +1,10 @@
 import { FormEventHandler } from "react";
 import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/components/InputError";
-import InputLabel from "@/components/InputLabel";
-import PrimaryButton from "@/components/PrimaryButton";
-import TextInput from "@/components/TextInput";
-import { Head, Link } from "@inertiajs/react";
+import InputError from "@/Components/InputError";
+import InputLabel from "@/Components/InputLabel";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
+import { Head, Link, router } from "@inertiajs/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -14,12 +14,12 @@ import {
     FormField,
     FormItem,
     FormLabel,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from "@/Components/ui/form";
+import { Input } from "@/Components/ui/input";
+import { Button } from "@/Components/ui/button";
 
 const formSchema = z.object({
-    name: z
+    nama: z
         .string({ message: "" })
         .min(2, { message: "" })
         .max(50, { message: "" }),
@@ -47,15 +47,15 @@ export default function Register() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
+            nama: "",
             email: "",
+            nik: "",
             password: "",
         },
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values);
+        router.post("/register", values);
     }
 
     return (
@@ -73,7 +73,7 @@ export default function Register() {
                 >
                     <FormField
                         control={form.control}
-                        name="name"
+                        name="nama"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Nama Lengkap</FormLabel>
