@@ -16,7 +16,7 @@ const Hero = () => {
                     </p>
                 </div>
                 <Link href="/register">
-                    <Button variant="default">Ajukan Konsultasi</Button>
+                    <Button variant="secondary">Ajukan Konsultasi</Button>
                 </Link>
             </div>
 
