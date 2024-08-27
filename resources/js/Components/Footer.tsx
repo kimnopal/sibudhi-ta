@@ -3,45 +3,23 @@ import { Separator } from "./ui/separator";
 
 const navMenu = [
     {
-        title: "About Us",
+        title: "Layanan",
         contents: [
             {
-                title: "About Us",
-                href: "/about",
+                title: "Konsultasi Hukum",
+                href: "/konsultasi",
             },
             {
-                title: "Our Team",
-                href: "/team",
+                title: "Perkara Perdata/Bisnis",
+                href: "/layanan",
             },
             {
-                title: "Our Achievements",
-                href: "/achievements",
-            },
-        ],
-    },
-    {
-        title: "Our Projects",
-        contents: [
-            {
-                title: "Our Projects",
-                href: "/projects",
+                title: "Perkara Pidana",
+                href: "/layanan",
             },
             {
-                title: "Our Products",
-                href: "/products",
-            },
-        ],
-    },
-    {
-        title: "Our Services",
-        contents: [
-            {
-                title: "Our Services",
-                href: "/services",
-            },
-            {
-                title: "Our Events",
-                href: "/events",
+                title: "Perkara Tata Usaha Negara",
+                href: "/layanan",
             },
         ],
     },
@@ -70,36 +48,27 @@ const Footer = () => {
     return (
         <footer className="bg-primary text-primary-foreground w-full px-4 pt-8">
             <div className="container max-w-screen-lg mx-auto flex flex-col py-8 gap-4">
-                <div className="flex justify-between gap-x-24 gap-y-8 flex-wrap">
-                    <div className="w-full max-w-xs flex flex-col gap-6 items-center md:items-start">
+                <div className="flex justify-between gap-x-10 gap-y-8 flex-wrap flex-col md:flex-row">
+                    <div className="w-full md:max-w-sm flex flex-col gap-6 items-center lg:items-start">
                         <Link href="/" className="flex items-center gap-2">
                             <img
                                 src="./images/logo.png"
                                 alt="SiBudhi"
                                 className="h-12"
                             />
-                            <span>SiBudhi</span>
+                            <span className="font-bold text-3xl">SiBudhi</span>
                         </Link>
-                        <p className=" text-center md:text-justify">
-                            We are group of students with ambitions to be the
-                            winner of Kontes Robot Indonesia (KRI) and Kontes
-                            Robot Terbang Indonesia (KRTI). We will always
-                            strike through for “The Future We Make, For The
-                            Better Life”.
+                        <p className="text-center lg:text-justify text-lg">
+                            Sibudhi merupakan platform legal yang menghubungkan
+                            profesional hukum dengan masyarakat pencari kedilan.
                         </p>
-                        <Link
-                            href={`mailto:kljklj@gmail.com`}
-                            className="font-bold"
-                        >
-                            jljkjklj
-                        </Link>
                     </div>
                     <div className="flex flex-1 flex-col gap-6">
-                        <ul className="flex flex-1 flex-wrap justify-between items-start">
+                        <ul className="flex flex-1 justify-between items-start gap-6 flex-col lg:flex-row">
                             {navMenu.map((menu, index) =>
                                 menu.contents ? (
                                     <li
-                                        className="grow shrink basis-1/2 md:basis-0 self-stretch px-2 flex-col justify-start items-start gap-2 inline-flex"
+                                        className="grow shrink basis-1/2 md:basis-0 flex-col justify-start items-start gap-2 inline-flex"
                                         key={index}
                                     >
                                         <h3 className="text-lg font-bold">
@@ -131,12 +100,24 @@ const Footer = () => {
                                     </li>
                                 ) : null
                             )}
+                            <li className="grow shrink basis-1/2 md:basis-0 flex-col justify-start items-start gap-2 inline-flex">
+                                <h3 className="text-lg font-bold">
+                                    Alamat Kami
+                                </h3>
+                                <p className="text-justify mb-1">
+                                    Desa Karangnangka RT.003 RW.004 Komplek
+                                    Kolam Renang dan Outbound Joglo Jembaran,
+                                    Kecamatan Kedungbanteng, Kabupaten Banyumas,
+                                    Jawa Tengah, 53152
+                                </p>
+                                <p>No. Telp : 082135027883</p>
+                            </li>
                         </ul>
                     </div>
                 </div>
                 <Separator />
                 <div className="flex justify-center md:justify-between flex-wrap-reverse gap-y-4 items-center">
-                    <p>© 2024 Soedirman Robotic Team</p>
+                    <p>© 2024 Sibudhi</p>
                     <ul className="flex gap-6 items-center">
                         {footSocials.map((item, index) => (
                             <li key={index}>
