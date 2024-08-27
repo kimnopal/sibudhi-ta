@@ -1,32 +1,30 @@
-import { Button } from "@/Components/ui/button";
-import { Link } from "@inertiajs/react";
-import React from "react";
 import ValueItem from "./ValueItem";
+import { BadgeCheck, MousePointerClick, Scale, Zap } from "lucide-react";
 
 const ourValues = [
     {
         title: "Tim Ahli Berpengalaman",
         description:
             "Tim ahli hukum kami terdiri dari profesional dan berpengalaman yang siap memberikan solusi terbaik untuk masalah hukum Anda.",
-        image: "./images/icons/badge-check.svg",
+        icon: BadgeCheck,
     },
     {
         title: "Tim Ahli Berpengalaman",
         description:
             "Tim ahli hukum kami terdiri dari profesional dan berpengalaman yang siap memberikan solusi terbaik untuk masalah hukum Anda.",
-        image: "./images/icons/scale.svg",
+        icon: Scale,
     },
     {
         title: "Tim Ahli Berpengalaman",
         description:
             "Tim ahli hukum kami terdiri dari profesional dan berpengalaman yang siap memberikan solusi terbaik untuk masalah hukum Anda.",
-        image: "./images/icons/mouse-pointer-click.svg",
+        icon: MousePointerClick,
     },
     {
         title: "Tim Ahli Berpengalaman",
         description:
             "Tim ahli hukum kami terdiri dari profesional dan berpengalaman yang siap memberikan solusi terbaik untuk masalah hukum Anda.",
-        image: "./images/icons/zap.svg",
+        icon: Zap,
     },
 ];
 
@@ -40,7 +38,7 @@ const Value = () => {
                         <ValueItem
                             title={value.title}
                             description={value.description}
-                            image={value.image}
+                            icon={value.icon}
                             key={index}
                         />
                     ))}

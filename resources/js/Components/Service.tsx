@@ -1,30 +1,31 @@
 import React from "react";
 import ServiceItem from "./ServiceItem";
+import { Building2, Gavel, Landmark, MessagesSquare } from "lucide-react";
 
 const ourServices = [
     {
         title: "Konsultasi Hukum",
         description:
             "Kami siap memberikan konsultasi hukum untuk menyelesaikan masalah hukum Anda.",
-        image: "./images/icons/messages-square.svg",
+        icon: MessagesSquare,
     },
     {
         title: "Pembuatan Dokumen Hukum",
         description:
             "Kami menyediakan jasa pembuatan dokumen hukum yang Anda butuhkan.",
-        image: "./images/icons/building.svg",
+        icon: Building2,
     },
     {
         title: "Mediasi",
         description:
             "Kami siap membantu Anda dalam proses mediasi untuk menyelesaikan masalah hukum Anda.",
-        image: "./images/icons/gavel.svg",
+        icon: Gavel,
     },
     {
         title: "Pendampingan Hukum",
         description:
             "Kami siap memberikan pendampingan hukum untuk menyelesaikan masalah hukum Anda.",
-        image: "./images/icons/landmark.svg",
+        icon: Landmark,
     },
 ];
 
@@ -47,7 +48,7 @@ const Service = () => {
                         <ServiceItem
                             title={service.title}
                             description={service.description}
-                            image={service.image}
+                            icon={service.icon}
                             key={index}
                         />
                     ))}
