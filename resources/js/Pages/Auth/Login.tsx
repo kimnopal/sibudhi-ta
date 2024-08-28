@@ -4,6 +4,7 @@ import { Head, Link, router } from "@inertiajs/react";
 import {
     Form,
     FormControl,
+    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -97,16 +98,18 @@ export default function Login({
                                         {...field}
                                     />
                                 </FormControl>
+                                <FormDescription className="flex justify-end font-medium text-secondary">
+                                    <Link href="/">Lupa Password?</Link>
+                                </FormDescription>
                             </FormItem>
                         )}
                     />
-                    <div className="flex justify-end font-medium text-secondary">
-                        <Link href="/">Lupa Password?</Link>
-                    </div>
                     <Button type="submit">Masuk</Button>
                     <p className="font-medium text-center">
                         Belum memiliki akun?{" "}
-                        <span className="text-secondary">Daftar Disini</span>
+                        <Link href="/register" className="text-secondary">
+                            Daftar Disini
+                        </Link>
                     </p>
                 </form>
             </Form>

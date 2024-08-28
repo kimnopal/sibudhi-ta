@@ -1,9 +1,4 @@
-import { FormEventHandler } from "react";
 import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
 import { Head, Link, router } from "@inertiajs/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -135,7 +130,9 @@ export default function Register() {
                     <Button type="submit">Daftar</Button>
                     <p className="font-medium text-center">
                         Sudah memiliki akun?{" "}
-                        <span className="text-secondary">Masuk Disini</span>
+                        <Link href="/login" className="text-secondary">
+                            Masuk Disini
+                        </Link>
                     </p>
                 </form>
             </Form>
