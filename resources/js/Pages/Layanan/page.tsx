@@ -39,7 +39,6 @@ const LayananPage = () => {
             {ourServices.map((service, index) => (
                 <ServiceSection key={index} {...service} />
             ))}
-            <div></div>
             <ServiceForm />
         </Layout>
     );

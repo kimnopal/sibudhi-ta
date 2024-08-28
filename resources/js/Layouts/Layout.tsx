@@ -6,7 +6,7 @@ const Layout = ({ children }: PropsWithChildren) => {
     return (
         <>
             <Navbar />
-            <main className="text-foreground mt-12">{children}</main>
+            <main className="text-foreground mt-16">{children}</main>
             <Footer />
         </>
     );
