@@ -1,5 +1,5 @@
 import Layout from "@/Layouts/Layout";
-import { EvenService, OddService } from "./components/ServiceSection";
+import ServiceSection from "./components/ServiceSection";
 import ServiceForm from "./components/ServiceForm";
 
 const ourServices = [
@@ -36,13 +36,10 @@ const ourServices = [
 const LayananPage = () => {
     return (
         <Layout>
-            {ourServices.map((service, index) =>
-                index % 2 ? (
-                    <EvenService key={index} {...service} />
-                ) : (
-                    <OddService key={index} {...service} />
-                )
-            )}
+            {ourServices.map((service, index) => (
+                <ServiceSection key={index} {...service} />
+            ))}
+            <div></div>
             <ServiceForm />
         </Layout>
     );
