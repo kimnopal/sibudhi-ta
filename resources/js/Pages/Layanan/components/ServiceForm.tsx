@@ -72,7 +72,7 @@ const ServiceForm = ({ services }: any) => {
                                 name="name"
                                 type="text"
                                 value={data.name}
-                                onChange={(e) =>
+                                onChange={(e: any) =>
                                     setData("name", e.target.value)
                                 }
                             />
@@ -144,7 +144,7 @@ const ServiceForm = ({ services }: any) => {
                                     name="email"
                                     type="email"
                                     value={data.email}
-                                    onChange={(e) =>
+                                    onChange={(e: any) =>
                                         setData("email", e.target.value)
                                     }
                                     className={`${
@@ -246,7 +246,7 @@ const ServiceForm = ({ services }: any) => {
                                 name="no_handphone"
                                 type="text"
                                 value={data.no_handphone}
-                                onChange={(e) =>
+                                onChange={(e: any) =>
                                     setData("no_handphone", e.target.value)
                                 }
                                 className={`${
@@ -310,7 +310,9 @@ const ServiceForm = ({ services }: any) => {
                         placeholder="Tuliskan pesan Anda"
                         name="description"
                         value={data.description}
-                        onChange={(e) => setData("description", e.target.value)}
+                        onChange={(e: any) =>
+                            setData("description", e.target.value)
+                        }
                         className={`${errors.description && "border-red-500"}`}
                     />
                     {errors.description && (

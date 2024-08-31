@@ -4,20 +4,26 @@ import { Link } from "@inertiajs/react";
 import { BriefcaseBusiness, GraduationCap, MapPin } from "lucide-react";
 import React from "react";
 
+interface expertise {
+    id: number;
+    name: string;
+}
+
 interface AdvocateCardProps {
     name: string;
     experience: number;
     almamater: string;
     domicile: string;
-    image_url: string;
-    expertises: string[];
+    no_handphone: string;
+    image: string;
+    expertises: expertise[];
 }
 
 const AdvocateCard = (advocate: AdvocateCardProps) => {
     return (
         <div className="md:max-h-72 flex flex-col md:flex-row justify-center items-center bg-white shadow-md rounded-lg overflow-hidden">
             <img
-                src={advocate.image_url}
+                src={`/images/advocates/${advocate.image}`}
                 alt={advocate.name}
                 className="w-full md:w-fit md:max-h-72 aspect-square md:aspect-[2/3] rounded-lg object-cover"
             />
@@ -46,19 +52,22 @@ const AdvocateCard = (advocate: AdvocateCardProps) => {
                     </div>
                 </div>
                 <div className="flex justify-start items-center gap-2">
-                    {advocate.expertises.map((expertise, index) => (
+                    {advocate.expertises.map((expertise: expertise) => (
                         <Badge
-                            key={index}
+                            key={expertise.id}
                             variant="default"
                             className="bg-subtle text-secondary rounded-sm"
                         >
-                            {expertise}
+                            {expertise.name}
                         </Badge>
                     ))}
                 </div>
-                <Link href="/">
+                <a
+                    href={`https://wa.me/62${advocate.no_handphone}`}
+                    target="_blank"
+                >
                     <Button variant="default">Konsultasi</Button>
-                </Link>
+                </a>
             </div>
         </div>
     );

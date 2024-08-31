@@ -31,8 +31,20 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Paijo',
-            'email' => 'paijo@example.com',
+            'name' => 'Dedi Subekti, S.H',
+            'email' => 'dedisubekti@example.com',
+            'password' => Hash::make('12345678'),
+        ]);
+
+        User::create([
+            'name' => 'Marlistiyono, S.H',
+            'email' => 'marlistiyono@example.com',
+            'password' => Hash::make('12345678'),
+        ]);
+
+        User::create([
+            'name' => 'Vega Wardhani, S.H',
+            'email' => 'vegawardhani@example.com',
             'password' => Hash::make('12345678'),
         ]);
 
@@ -49,8 +61,28 @@ class DatabaseSeeder extends Seeder
         Advocate::create([
             'experience' => 1,
             'university' => 'Universitas Jenderal Soedirman',
-            'domicile' => 'Purbalingga',
+            'domicile' => 'Banyumas',
+            'no_handphone' => '081234567890',
+            'image' => 'image 2.png',
             'user_id' => 2,
+        ]);
+
+        Advocate::create([
+            'experience' => 1,
+            'university' => 'Universitas Wijaya Kusuma',
+            'domicile' => 'Banyumas',
+            'no_handphone' => '081234567890',
+            'image' => 'image 3.png',
+            'user_id' => 3,
+        ]);
+
+        Advocate::create([
+            'experience' => 1,
+            'university' => 'Universitas Wijaya Kusuma',
+            'domicile' => 'Banyumas',
+            'no_handphone' => '081234567890',
+            'image' => 'image 4.png',
+            'user_id' => 4,
         ]);
 
         // Keahlian Advokat
@@ -61,6 +93,26 @@ class DatabaseSeeder extends Seeder
 
         AdvocateExpertise::create([
             'advocate_id' => 1,
+            'expertise_id' => 2,
+        ]);
+
+        AdvocateExpertise::create([
+            'advocate_id' => 2,
+            'expertise_id' => 1,
+        ]);
+
+        AdvocateExpertise::create([
+            'advocate_id' => 2,
+            'expertise_id' => 2,
+        ]);
+
+        AdvocateExpertise::create([
+            'advocate_id' => 3,
+            'expertise_id' => 1,
+        ]);
+
+        AdvocateExpertise::create([
+            'advocate_id' => 3,
             'expertise_id' => 2,
         ]);
 
