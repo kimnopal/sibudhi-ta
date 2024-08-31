@@ -1,3 +1,4 @@
+import Dropdown from "@/Components/Dropdown";
 import { Button } from "@/Components/ui/button";
 import {
     Form,
@@ -7,10 +8,32 @@ import {
     FormLabel,
 } from "@/Components/ui/form";
 import { Input } from "@/Components/ui/input";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/Components/ui/select";
 import { Textarea } from "@/Components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+const layananHukum = [
+    {
+        value: "hukum-perdata",
+        label: "Hukum Perdata",
+    },
+    {
+        value: "hukum-hukum",
+        label: "Hukum Hukum",
+    },
+    {
+        value: "hukum-cambuk",
+        label: "Hukum Cambuk",
+    },
+];
 
 const formSchema = z.object({
     name: z.string(),
@@ -75,12 +98,29 @@ const ServiceForm = () => {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Layanan Hukum</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Pilih Layanan Hukum"
-                                                {...field}
-                                            />
-                                        </FormControl>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                            {...field}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Pilih Layanan Hukum" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                {layananHukum.map(
+                                                    (item, index) => (
+                                                        <SelectItem
+                                                            key={index}
+                                                            value={item.value}
+                                                        >
+                                                            {item.label}
+                                                        </SelectItem>
+                                                    )
+                                                )}
+                                            </SelectContent>
+                                        </Select>
                                     </FormItem>
                                 )}
                             />
@@ -113,12 +153,29 @@ const ServiceForm = () => {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Jenis Layanan</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Pilih Jenis Layanan"
-                                                {...field}
-                                            />
-                                        </FormControl>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                            {...field}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Pilih Layanan Hukum" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                {layananHukum.map(
+                                                    (item, index) => (
+                                                        <SelectItem
+                                                            key={index}
+                                                            value={item.value}
+                                                        >
+                                                            {item.label}
+                                                        </SelectItem>
+                                                    )
+                                                )}
+                                            </SelectContent>
+                                        </Select>
                                     </FormItem>
                                 )}
                             />
@@ -150,12 +207,29 @@ const ServiceForm = () => {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Jenis Layanan</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Pilih Jenis Layanan"
-                                                {...field}
-                                            />
-                                        </FormControl>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                            {...field}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Pilih Layanan Hukum" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                {layananHukum.map(
+                                                    (item, index) => (
+                                                        <SelectItem
+                                                            key={index}
+                                                            value={item.value}
+                                                        >
+                                                            {item.label}
+                                                        </SelectItem>
+                                                    )
+                                                )}
+                                            </SelectContent>
+                                        </Select>
                                     </FormItem>
                                 )}
                             />
