@@ -74,7 +74,6 @@ const menuItems: (NavbarItem | NavbarMenuItem)[] = [
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const { auth }: any = usePage().props;
-    console.log(auth.user);
 
     useEffect(() => {
         const handleScroll = () => {
