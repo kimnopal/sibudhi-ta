@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 ("use client");
 
 import { cn } from "@/lib/utils";
@@ -73,6 +73,8 @@ const menuItems: (NavbarItem | NavbarMenuItem)[] = [
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
+    const { auth }: any = usePage().props;
+    console.log(auth.user);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -170,22 +172,34 @@ const Navbar = () => {
                                     );
                                 }
                             })}
-                            <Link
-                                href={"/register"}
-                                className="flex-1 flex justify-center items-center"
-                            >
-                                <Button variant="secondary" className="flex-1">
-                                    Daftar
-                                </Button>
-                            </Link>
-                            <Link
-                                href={"/login"}
-                                className="w-full h-full flex justify-center items-center"
-                            >
-                                <Button variant="outline" className="flex-1">
-                                    Masuk
-                                </Button>
-                            </Link>
+                            {auth.user ? (
+                                "udah login"
+                            ) : (
+                                <>
+                                    <Link
+                                        href={"/register"}
+                                        className="flex-1 flex justify-center items-center"
+                                    >
+                                        <Button
+                                            variant="secondary"
+                                            className="flex-1"
+                                        >
+                                            Daftar
+                                        </Button>
+                                    </Link>
+                                    <Link
+                                        href={"/login"}
+                                        className="w-full h-full flex justify-center items-center"
+                                    >
+                                        <Button
+                                            variant="outline"
+                                            className="flex-1"
+                                        >
+                                            Masuk
+                                        </Button>
+                                    </Link>
+                                </>
+                            )}
                         </nav>
                     </SheetContent>
                 </Sheet>
@@ -256,26 +270,36 @@ const Navbar = () => {
                             }
                         })}
                         <NavigationMenuItem className="flex pl-4 w-fit gap-4">
-                            <NavigationMenuLink
-                                className={`${navigationMenuTriggerStyle()} !px-0`}
-                            >
-                                <Link
-                                    href={"/register"}
-                                    className="w-full h-full flex justify-center items-center"
-                                >
-                                    <Button variant="secondary">Daftar</Button>
-                                </Link>
-                            </NavigationMenuLink>
-                            <NavigationMenuLink
-                                className={`${navigationMenuTriggerStyle()} !px-0`}
-                            >
-                                <Link
-                                    href={"/login"}
-                                    className="w-full h-full flex justify-center items-center"
-                                >
-                                    <Button variant="outline">Masuk</Button>
-                                </Link>
-                            </NavigationMenuLink>
+                            {auth.user ? (
+                                "udah login"
+                            ) : (
+                                <>
+                                    <NavigationMenuLink
+                                        className={`${navigationMenuTriggerStyle()} !px-0`}
+                                    >
+                                        <Link
+                                            href={"/register"}
+                                            className="w-full h-full flex justify-center items-center"
+                                        >
+                                            <Button variant="secondary">
+                                                Daftar
+                                            </Button>
+                                        </Link>
+                                    </NavigationMenuLink>
+                                    <NavigationMenuLink
+                                        className={`${navigationMenuTriggerStyle()} !px-0`}
+                                    >
+                                        <Link
+                                            href={"/login"}
+                                            className="w-full h-full flex justify-center items-center"
+                                        >
+                                            <Button variant="outline">
+                                                Masuk
+                                            </Button>
+                                        </Link>
+                                    </NavigationMenuLink>
+                                </>
+                            )}
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>
