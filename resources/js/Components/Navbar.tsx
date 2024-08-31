@@ -122,7 +122,10 @@ const Navbar = () => {
                                                 }
                                                 className="w-full h-full flex justify-center items-center"
                                             >
-                                                <Button variant="link">
+                                                <Button
+                                                    variant="link"
+                                                    className="text-base"
+                                                >
                                                     {
                                                         (item as NavbarMenuItem)
                                                             .title
@@ -141,11 +144,12 @@ const Navbar = () => {
                                             {item.title}
                                         </NavigationMenuTrigger>
                                         <NavigationMenuContent>
-                                            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[300px] lg:grid-cols-1">
+                                            <ul className="gap-3 p-2">
                                                 {(item as NavbarItem).items.map(
                                                     (subItem, subIndex) => {
                                                         return (
                                                             <ListItem
+                                                                className="text-nowrap"
                                                                 key={subIndex}
                                                                 href={
                                                                     subItem.href
@@ -167,6 +171,28 @@ const Navbar = () => {
                                 );
                             }
                         })}
+                        <NavigationMenuItem className="flex pl-4 w-fit gap-4">
+                            <NavigationMenuLink
+                                className={`${navigationMenuTriggerStyle()} !px-0`}
+                            >
+                                <Link
+                                    href={"/register"}
+                                    className="w-full h-full flex justify-center items-center"
+                                >
+                                    <Button variant="secondary">Daftar</Button>
+                                </Link>
+                            </NavigationMenuLink>
+                            <NavigationMenuLink
+                                className={`${navigationMenuTriggerStyle()} !px-0`}
+                            >
+                                <Link
+                                    href={"/masuk"}
+                                    className="w-full h-full flex justify-center items-center"
+                                >
+                                    <Button variant="outline">Masuk</Button>
+                                </Link>
+                            </NavigationMenuLink>
+                        </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>
             </div>
