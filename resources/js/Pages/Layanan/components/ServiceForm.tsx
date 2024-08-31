@@ -49,21 +49,43 @@ const ServiceForm = () => {
                         Lengkapi Formulir Pengajuan Perkara Berikut
                     </h3>
 
-                    <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Nama Lengkap</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Nama Lengkap Anda!"
-                                        {...field}
-                                    />
-                                </FormControl>
-                            </FormItem>
-                        )}
-                    />
+                    <div className="flex flex-wrap gap-4">
+                        <div className="flex-1">
+                            <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Nama Lengkap</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="Nama Lengkap Anda!"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+
+                        <div className="flex-1">
+                            <FormField
+                                control={form.control}
+                                name="layanan"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Layanan Hukum</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="Pilih Layanan Hukum"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                    </div>
 
                     <div className="flex flex-wrap gap-4">
                         <div className="flex-1">
@@ -83,16 +105,17 @@ const ServiceForm = () => {
                                 )}
                             />
                         </div>
+
                         <div className="flex-1">
                             <FormField
                                 control={form.control}
-                                name="layanan"
+                                name="jenis"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Layanan Hukum</FormLabel>
+                                        <FormLabel>Jenis Layanan</FormLabel>
                                         <FormControl>
                                             <Input
-                                                placeholder="Pilih Layanan Hukum"
+                                                placeholder="Pilih Jenis Layanan"
                                                 {...field}
                                             />
                                         </FormControl>

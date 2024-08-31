@@ -43,22 +43,22 @@ const menuItems: (NavbarItem | NavbarMenuItem)[] = [
         items: [
             {
                 title: "Konsultasi Hukum",
-                href: "/services/legal-consultation",
+                href: "/consultation",
                 logo: MessagesSquare,
             },
             {
                 title: "Perkara Perdata/Bisnis",
-                href: "/services/legal-consultation",
+                href: "/services?to=perkara-perdata",
                 logo: Building2,
             },
             {
                 title: "Perkara Pidana",
-                href: "/services/legal-consultation",
+                href: "/services?to=perkara-pidana",
                 logo: Landmark,
             },
             {
                 title: "Perkara Tata Usaha Negara",
-                href: "/services/legal-consultation",
+                href: "/services?to=perkara-tata-usaha",
                 logo: Gavel,
             },
         ],
@@ -186,7 +186,7 @@ const Navbar = () => {
                                 className={`${navigationMenuTriggerStyle()} !px-0`}
                             >
                                 <Link
-                                    href={"/masuk"}
+                                    href={"/login"}
                                     className="w-full h-full flex justify-center items-center"
                                 >
                                     <Button variant="outline">Masuk</Button>
