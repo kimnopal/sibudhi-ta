@@ -20,7 +20,7 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         if (!Auth::user()) {
-            return redirect()->back()->with('error', 'Harap login terlebih dahulu');
+            return redirect()->back()->with('error', ['Gagal mengirim laporan', 'Harap login terlebih dahulu']);
         }
 
         $request->validate([
@@ -37,17 +37,17 @@ class ReportController extends Controller
 
         $service = Service::find($request['service_id']);
         if (!$service) {
-            return redirect()->back()->with('error', 'Data tidak valid');
+            return redirect()->back()->with('error', ['Gagal mengirim laporan', 'Harap masukkan data yang sesuai']);
         }
 
         if ($request['service_type_id']) {
             $serviceType = ServiceType::find($request['service_type_id']);
             if (!$serviceType) {
-                return redirect()->back()->with('error', 'Data tidak valid');
+                return redirect()->back()->with('error', ['Gagal mengirim laporan', 'Harap masukkan data yang sesuai']);
             }
         }
 
         Report::create($request->all());
-        return redirect()->back()->with('success', 'Berhasil mengirim laporan');
+        return redirect()->back()->with('success', ['Berhasil mengirim laporan', 'Kami akan segera menghubungi anda!']);
     }
 }

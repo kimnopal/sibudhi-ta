@@ -1,4 +1,3 @@
-import Dropdown from "@/Components/Dropdown";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -8,7 +7,6 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    AlertDialogTrigger,
 } from "@/Components/ui/alert-dialog";
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
@@ -21,26 +19,14 @@ import {
     SelectValue,
 } from "@/Components/ui/select";
 import { Textarea } from "@/Components/ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { router, useForm, usePage } from "@inertiajs/react";
-import { useEffect, useState } from "react";
-import { z } from "zod";
-
-const formSchema = z.object({
-    name: z.string(),
-    email: z.string().email(),
-    no_handphone: z.string(),
-    service_id: z.string(),
-    service_type_id: z.string(),
-    description: z.string(),
-    status: z.string(),
-});
+import { useForm, usePage } from "@inertiajs/react";
+import { useState } from "react";
 
 const ServiceForm = ({ services }: any) => {
     const [showModal, setShowModal] = useState(true);
     const { session }: any = usePage().props;
 
-    const { data, setData } = useForm({
+    const { data, setData, post, errors, reset } = useForm({
         name: "",
         email: "",
         no_handphone: "",
@@ -49,25 +35,16 @@ const ServiceForm = ({ services }: any) => {
         description: "",
         status: "",
     });
-
     console.log(session);
 
-    // useEffect(() => {
-    //     console.log(data.service_id ? true : false);
-    //     console.log(
-    //         services[Number(data.service_id) - 1]?.service_types ? true : false
-    //     );
-    //     console.log(data.service_id);
-    //     console.log(services[Number(data.service_id) - 1].service_types);
-    // }, [data.service_id]);
-
-    const onSubmit = async () => {
-        // router.post("/reports", values, {
-        //     preserveScroll: true,
-        //     onSuccess: function () {
-        //         setShowModal(true);
-        //     },
-        // });
+    const onSubmit = (e: any) => {
+        e.preventDefault();
+        post("/reports", {
+            preserveScroll: true,
+            onSuccess: function () {
+                reset();
+            },
+        });
     };
 
     return (
@@ -84,13 +61,13 @@ const ServiceForm = ({ services }: any) => {
                     <div className="flex-1">
                         <div className="space-y-2">
                             <Label
-                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                className={`${errors.name && "text-red-500"}`}
                                 htmlFor="name"
                             >
                                 Nama Lengkap
                             </Label>
                             <Input
-                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                className={`${errors.name && "border-red-500"}`}
                                 placeholder="Nama Lengkap Anda!"
                                 name="name"
                                 type="text"
@@ -99,18 +76,35 @@ const ServiceForm = ({ services }: any) => {
                                     setData("name", e.target.value)
                                 }
                             />
+
+                            {errors.name && (
+                                <p className="text-sm text-red-500">
+                                    {errors.name}
+                                </p>
+                            )}
                         </div>
                     </div>
 
                     <div className="flex-1">
                         <div className="space-y-2">
-                            <Label htmlFor="service_id">Layanan Hukum</Label>
+                            <Label
+                                htmlFor="service_id"
+                                className={`${
+                                    errors.service_id && "text-red-500"
+                                }`}
+                            >
+                                Layanan Hukum
+                            </Label>
                             <Select
                                 onValueChange={(e) => setData("service_id", e)}
                                 name="service_id"
                                 value={data.service_id}
                             >
-                                <SelectTrigger>
+                                <SelectTrigger
+                                    className={`${
+                                        errors.service_id && "border-red-500"
+                                    }`}
+                                >
                                     <SelectValue placeholder="Pilih Layanan Hukum" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -124,6 +118,11 @@ const ServiceForm = ({ services }: any) => {
                                     ))}
                                 </SelectContent>
                             </Select>
+                            {errors.service_id && (
+                                <p className="text-sm text-red-500">
+                                    {errors.service_id}
+                                </p>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -132,23 +131,43 @@ const ServiceForm = ({ services }: any) => {
                     <div className="flex-1">
                         <div className="space-y-2">
                             <div className="space-y-2">
-                                <Label htmlFor="email">Email</Label>
+                                <Label
+                                    htmlFor="email"
+                                    className={`${
+                                        errors.email && "text-red-500"
+                                    }`}
+                                >
+                                    Email
+                                </Label>
                                 <Input
                                     placeholder="yourname@example.com"
                                     name="email"
                                     type="email"
-                                    value={data.name}
+                                    value={data.email}
                                     onChange={(e) =>
                                         setData("email", e.target.value)
                                     }
+                                    className={`${
+                                        errors.email && "border-red-500"
+                                    }`}
                                 />
+                                {errors.email && (
+                                    <p className="text-sm text-red-500">
+                                        {errors.email}
+                                    </p>
+                                )}
                             </div>
                         </div>
                     </div>
 
                     <div className="flex-1">
                         <div className="space-y-2">
-                            <Label htmlFor="service_type_id">
+                            <Label
+                                htmlFor="service_type_id"
+                                className={`${
+                                    errors.service_type_id && "text-red-500"
+                                }`}
+                            >
                                 Jenis Layanan
                             </Label>
                             <Select
@@ -158,7 +177,12 @@ const ServiceForm = ({ services }: any) => {
                                     setData("service_type_id", e)
                                 }
                             >
-                                <SelectTrigger>
+                                <SelectTrigger
+                                    className={`${
+                                        errors.service_type_id &&
+                                        "border-red-500"
+                                    }`}
+                                >
                                     <SelectValue placeholder="Pilih Layanan Hukum" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -197,6 +221,11 @@ const ServiceForm = ({ services }: any) => {
                                     )}
                                 </SelectContent>
                             </Select>
+                            {errors.service_type_id && (
+                                <p className="text-sm text-red-500">
+                                    {errors.service_type_id}
+                                </p>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -204,7 +233,12 @@ const ServiceForm = ({ services }: any) => {
                 <div className="flex flex-col md:flex-row flex-wrap gap-4">
                     <div className="flex-1">
                         <div className="space-y-2">
-                            <Label htmlFor="no_handphone">
+                            <Label
+                                htmlFor="no_handphone"
+                                className={`${
+                                    errors.no_handphone && "text-red-500"
+                                }`}
+                            >
                                 Nomor Handphone
                             </Label>
                             <Input
@@ -215,18 +249,35 @@ const ServiceForm = ({ services }: any) => {
                                 onChange={(e) =>
                                     setData("no_handphone", e.target.value)
                                 }
+                                className={`${
+                                    errors.no_handphone && "border-red-500"
+                                }`}
                             />
+                            {errors.no_handphone && (
+                                <p className="text-sm text-red-500">
+                                    {errors.no_handphone}
+                                </p>
+                            )}
                         </div>
                     </div>
                     <div className="flex-1">
                         <div className="space-y-2">
-                            <Label htmlFor="status">Status</Label>
+                            <Label
+                                htmlFor="status"
+                                className={`${errors.status && "text-red-500"}`}
+                            >
+                                Status
+                            </Label>
                             <Select
                                 name="status"
                                 value={data.status}
                                 onValueChange={(e) => setData("status", e)}
                             >
-                                <SelectTrigger>
+                                <SelectTrigger
+                                    className={`${
+                                        errors.status && "border-red-500"
+                                    }`}
+                                >
                                     <SelectValue placeholder="Pilih Status" />
                                 </SelectTrigger>
 
@@ -239,18 +290,34 @@ const ServiceForm = ({ services }: any) => {
                                     </SelectItem>
                                 </SelectContent>
                             </Select>
+                            {errors.status && (
+                                <p className="text-sm text-red-500">
+                                    {errors.status}
+                                </p>
+                            )}
                         </div>
                     </div>
                 </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="description">Deskripsi</Label>
+                    <Label
+                        htmlFor="description"
+                        className={`${errors.description && "text-red-500"}`}
+                    >
+                        Deskripsi
+                    </Label>
                     <Textarea
                         placeholder="Tuliskan pesan Anda"
                         name="description"
                         value={data.description}
                         onChange={(e) => setData("description", e.target.value)}
+                        className={`${errors.description && "border-red-500"}`}
                     />
+                    {errors.description && (
+                        <p className="text-sm text-red-500">
+                            {errors.description}
+                        </p>
+                    )}
                 </div>
 
                 <Button type="submit" className="w-full">
@@ -262,13 +329,19 @@ const ServiceForm = ({ services }: any) => {
                 <AlertDialog open={showModal} onOpenChange={setShowModal}>
                     <AlertDialogContent>
                         <AlertDialogHeader>
-                            <AlertDialogTitle>Informasi</AlertDialogTitle>
+                            <AlertDialogTitle>
+                                {session.error
+                                    ? session.error[0]
+                                    : session.success[0]}
+                            </AlertDialogTitle>
                         </AlertDialogHeader>
                         <AlertDialogDescription>
-                            {session.error || session.success}
+                            {session.error
+                                ? session.error[1]
+                                : session.success[1]}
                         </AlertDialogDescription>
                         <AlertDialogFooter>
-                            <AlertDialogAction>Continue</AlertDialogAction>
+                            <AlertDialogAction>Tutup</AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
