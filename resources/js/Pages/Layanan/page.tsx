@@ -33,13 +33,13 @@ const ourServices = [
     },
 ];
 
-const LayananPage = () => {
+const LayananPage = ({ services }: any) => {
     return (
         <Layout>
             {ourServices.map((service, index) => (
                 <ServiceSection key={index} {...service} />
             ))}
-            <ServiceForm />
+            <ServiceForm services={services} />
         </Layout>
     );
 };

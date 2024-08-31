@@ -118,6 +118,8 @@ class DatabaseSeeder extends Seeder
         Report::create([
             'user_id' => 1,
             'service_id' => 1,
+            'name' => 'Naufal',
+            'email' => 'naufal@gmail.com',
             'no_handphone' => '081234567890',
             'description' => 'lorem ipsum dolor sit amet',
         ]);

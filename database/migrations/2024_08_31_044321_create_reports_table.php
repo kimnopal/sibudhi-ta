@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger("service_id");
             $table->unsignedBigInteger("service_type_id")->nullable();
+            $table->string('name');
+            $table->string('email');
             $table->string("no_handphone");
             $table->enum("status", ["penggugat", "tergugat"])->nullable();
             $table->text('description');

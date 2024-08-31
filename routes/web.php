@@ -34,4 +34,5 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/consultation', [ConsultationController::class, 'index'])->name('consultation');
 
 Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
+Route::post('/reports', [ReportController::class, 'store'])->name('report.store');
 // require __DIR__ . '/auth.php';
