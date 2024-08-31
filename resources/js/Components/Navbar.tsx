@@ -50,17 +50,17 @@ const menuItems: (NavbarItem | NavbarMenuItem)[] = [
             },
             {
                 title: "Perkara Perdata/Bisnis",
-                href: "/services?to=perkara-perdata",
+                href: "/services#perkara-perdata",
                 logo: Building2,
             },
             {
                 title: "Perkara Pidana",
-                href: "/services?to=perkara-pidana",
+                href: "/services#perkara-pidana",
                 logo: Landmark,
             },
             {
                 title: "Perkara Tata Usaha Negara",
-                href: "/services?to=perkara-tata-usaha",
+                href: "/services#perkara-tata-usaha",
                 logo: Gavel,
             },
         ],
