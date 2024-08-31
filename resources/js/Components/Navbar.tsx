@@ -22,7 +22,9 @@ import {
     Landmark,
     LucideProps,
     MessagesSquare,
+    PanelRight,
 } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 interface NavbarMenuItem {
     title: string;
@@ -70,8 +72,6 @@ const menuItems: (NavbarItem | NavbarMenuItem)[] = [
 ];
 
 const Navbar = () => {
-    const [active, setActive] = useState("");
-    const [toggle, setToggle] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
@@ -106,7 +106,91 @@ const Navbar = () => {
                     </Link>
                 </div>
 
-                <NavigationMenu>
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <Button
+                            size="icon"
+                            variant="outline"
+                            className="sm:hidden"
+                        >
+                            <PanelRight className="h-5 w-5" />
+                            <span className="sr-only">Toggle Menu</span>
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="right" className="sm:max-w-xs">
+                        <nav className="grid gap-6 text-lg font-medium">
+                            <Link
+                                href="https://soedirmanrobotic.com"
+                                className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full text-lg font-semibold text-primary-foreground md:text-base"
+                            >
+                                <img src={Logo} alt="" className="h-12" />
+                                <span className="sr-only">SiBudhi</span>
+                            </Link>
+                            {menuItems.map((item, index) => {
+                                if (
+                                    (item as NavbarMenuItem).href !== undefined
+                                ) {
+                                    return (
+                                        <Link
+                                            href={(item as NavbarMenuItem).href}
+                                            className="flex items-center gap-4 px-2.5 text-primary hover:text-foreground"
+                                            key={index}
+                                        >
+                                            {(item as NavbarMenuItem).title}
+                                        </Link>
+                                    );
+                                } else if (
+                                    (item as NavbarItem).items !== undefined
+                                ) {
+                                    return (
+                                        <div
+                                            className="flex flex-col space-y-3 pt-6"
+                                            key={index}
+                                        >
+                                            <Link
+                                                href="/services"
+                                                className="flex items-center gap-4 px-2.5 text-primary hover:text-foreground"
+                                            >
+                                                Layanan Konsultasi
+                                            </Link>
+                                            {(item as NavbarItem).items.map(
+                                                (subItem, index) => {
+                                                    return (
+                                                        <Link
+                                                            href={subItem.href}
+                                                            className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground font-light"
+                                                            key={index}
+                                                        >
+                                                            {subItem.title}
+                                                        </Link>
+                                                    );
+                                                }
+                                            )}
+                                        </div>
+                                    );
+                                }
+                            })}
+                            <Link
+                                href={"/register"}
+                                className="flex-1 flex justify-center items-center"
+                            >
+                                <Button variant="secondary" className="flex-1">
+                                    Daftar
+                                </Button>
+                            </Link>
+                            <Link
+                                href={"/login"}
+                                className="w-full h-full flex justify-center items-center"
+                            >
+                                <Button variant="outline" className="flex-1">
+                                    Masuk
+                                </Button>
+                            </Link>
+                        </nav>
+                    </SheetContent>
+                </Sheet>
+
+                <NavigationMenu className="hidden sm:block">
                     <NavigationMenuList>
                         {menuItems.map((item, index) => {
                             if ((item as NavbarMenuItem).href !== undefined) {
