@@ -17,7 +17,7 @@ const page = () => {
                     placeholder="Cari advokat"
                     onChange={(e) => setSearch(e.target.value.toLowerCase())}
                 />
-                <div className="md:grid md:grid-cols-2 md:gap-8">
+                <div className="flex md:grid flex-col md:grid-cols-2 gap-4 md:gap-8">
                     {ourAdvocates
                         .filter((item) =>
                             item.name.toLowerCase().includes(search)
