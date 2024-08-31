@@ -80,7 +80,7 @@ const ServiceForm = ({ services }: any) => {
                     Lengkapi Formulir Pengajuan Perkara Berikut
                 </h3>
 
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-col md:flex-row flex-wrap gap-4">
                     <div className="flex-1">
                         <div className="space-y-2">
                             <Label
@@ -128,7 +128,7 @@ const ServiceForm = ({ services }: any) => {
                     </div>
                 </div>
 
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-col md:flex-row flex-wrap gap-4">
                     <div className="flex-1">
                         <div className="space-y-2">
                             <div className="space-y-2">
@@ -201,7 +201,7 @@ const ServiceForm = ({ services }: any) => {
                     </div>
                 </div>
 
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-col md:flex-row flex-wrap gap-4">
                     <div className="flex-1">
                         <div className="space-y-2">
                             <Label htmlFor="no_handphone">
