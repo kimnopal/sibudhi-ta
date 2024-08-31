@@ -2,10 +2,28 @@ import { Input } from "@/Components/ui/input";
 import Layout from "@/Layouts/Layout";
 import { ourAdvocates } from "./data";
 import AdvocateCard from "./components/AdvocateCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { router } from "@inertiajs/react";
 
 const page = () => {
     const [search, setSearch] = useState<string>("");
+    const [advocates, setAdvocates] = useState<any>();
+
+    useEffect(() => {
+        (async () => {
+            const res = await fetch("/consultation/data");
+            const json = await res.json();
+            setAdvocates(json);
+        })();
+    }, []);
+
+    useEffect(() => {
+        (async () => {
+            const res = await fetch("/consultation/data?search=" + search);
+            const json = await res.json();
+            setAdvocates(json);
+        })();
+    }, [search]);
 
     return (
         <Layout>
@@ -16,20 +34,19 @@ const page = () => {
                 <Input
                     placeholder="Cari advokat"
                     onChange={(e) => setSearch(e.target.value.toLowerCase())}
+                    value={search}
                 />
                 <div className="flex md:grid flex-col md:grid-cols-2 gap-4 md:gap-8">
-                    {ourAdvocates
-                        .filter((item) =>
-                            item.name.toLowerCase().includes(search)
-                        )
-                        .map((advocate, index) => (
+                    {advocates &&
+                        advocates.map((advocate: any) => (
                             <AdvocateCard
-                                key={index}
+                                key={advocate.id}
                                 name={advocate.name}
                                 experience={advocate.experience}
-                                almamater={advocate.almamater}
+                                almamater={advocate.university}
                                 domicile={advocate.domicile}
-                                image_url={advocate.image_url}
+                                no_handphone={advocate.no_handphone}
+                                image={advocate.image}
                                 expertises={advocate.expertises}
                             />
                         ))}

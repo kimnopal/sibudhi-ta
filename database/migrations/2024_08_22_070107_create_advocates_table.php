@@ -16,6 +16,8 @@ return new class extends Migration
             $table->integer("experience");
             $table->string("university");
             $table->string("domicile");
+            $table->string("no_handphone");
+            $table->string("image");
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

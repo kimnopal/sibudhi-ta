@@ -31,7 +31,10 @@ Route::post("/logout", [AuthController::class, 'logout'])->name('logout');
 
 Route::get("/services", [ServiceController::class, 'index'])->name('services');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+
 Route::get('/consultation', [ConsultationController::class, 'index'])->name('consultation');
+Route::get('/consultation/data', [ConsultationController::class, 'data'])->name('consultation.data');
+// Route::get('/advocates')
 
 Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
 Route::post('/reports', [ReportController::class, 'store'])->name('report.store');
