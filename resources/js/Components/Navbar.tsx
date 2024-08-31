@@ -25,6 +25,16 @@ import {
     PanelRight,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Separator } from "./ui/separator";
 
 interface NavbarMenuItem {
     title: string;
@@ -124,9 +134,46 @@ const Navbar = () => {
                                 href="https://soedirmanrobotic.com"
                                 className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full text-lg font-semibold text-primary-foreground md:text-base"
                             >
-                                <img src={Logo} alt="" className="h-12" />
+                                <img src={Logo} alt="" className="h-8" />
                                 <span className="sr-only">SiBudhi</span>
                             </Link>
+                            {auth.user && (
+                                <>
+                                    <div className="flex flex-col gap-4">
+                                        <div className="flex gap-4">
+                                            <Avatar className="border border-border">
+                                                <AvatarImage src="" />
+                                                <AvatarFallback>
+                                                    {
+                                                        auth.user.name.split(
+                                                            " "
+                                                        )[0][0]
+                                                    }
+                                                </AvatarFallback>
+                                            </Avatar>
+                                            <div className="flex flex-col justify-center items-start gap-1 text-xs">
+                                                <span className="font-bold">
+                                                    {auth.user.name}
+                                                </span>
+                                                <span>{auth.user.email}</span>
+                                            </div>
+                                        </div>
+                                        <Link
+                                            href="/dashboard"
+                                            className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                                        >
+                                            Lihat Laporan
+                                        </Link>
+                                        <Link
+                                            href="/logout"
+                                            className="flex items-center gap-4 px-2.5 text-destructive hover:text-foreground"
+                                        >
+                                            Logout
+                                        </Link>
+                                    </div>
+                                    <Separator dir="horizontal" />
+                                </>
+                            )}
                             {menuItems.map((item, index) => {
                                 if (
                                     (item as NavbarMenuItem).href !== undefined
@@ -145,7 +192,7 @@ const Navbar = () => {
                                 ) {
                                     return (
                                         <div
-                                            className="flex flex-col space-y-3 pt-6"
+                                            className="flex flex-col space-y-3"
                                             key={index}
                                         >
                                             <Link
@@ -171,9 +218,7 @@ const Navbar = () => {
                                     );
                                 }
                             })}
-                            {auth.user ? (
-                                "udah login"
-                            ) : (
+                            {!auth.user && (
                                 <>
                                     <Link
                                         href={"/register"}
@@ -270,7 +315,39 @@ const Navbar = () => {
                         })}
                         <NavigationMenuItem className="flex pl-4 w-fit gap-4">
                             {auth.user ? (
-                                "udah login"
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button
+                                            size="icon"
+                                            variant="outline"
+                                            className="rounded-full"
+                                        >
+                                            <Avatar>
+                                                <AvatarImage src="" />
+                                                <AvatarFallback>
+                                                    {
+                                                        auth.user.name.split(
+                                                            " "
+                                                        )[0][0]
+                                                    }
+                                                </AvatarFallback>
+                                            </Avatar>
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuLabel>
+                                            My Account
+                                        </DropdownMenuLabel>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem>
+                                            Lihat Laporan
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem>
+                                            Logout
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             ) : (
                                 <>
                                     <NavigationMenuLink
