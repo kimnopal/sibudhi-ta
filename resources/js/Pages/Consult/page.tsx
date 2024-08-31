@@ -1,9 +1,7 @@
 import { Input } from "@/Components/ui/input";
 import Layout from "@/Layouts/Layout";
-import { ourAdvocates } from "./data";
 import AdvocateCard from "./components/AdvocateCard";
 import { useEffect, useState } from "react";
-import { router } from "@inertiajs/react";
 
 const page = () => {
     const [search, setSearch] = useState<string>("");
@@ -27,9 +25,9 @@ const page = () => {
 
     return (
         <Layout>
-            <section className="container max-w-screen-lg space-y-8 py-16">
+            <section className="container max-w-screen-lg space-y-6  py-16">
                 <h1 className="font-bold text-3xl">
-                    Temukan Advokat Pilihanmu
+                    Temukan Advokat Pilihan Anda
                 </h1>
                 <Input
                     placeholder="Cari advokat"

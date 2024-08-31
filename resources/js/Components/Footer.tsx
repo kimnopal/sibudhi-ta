@@ -7,19 +7,19 @@ const navMenu = [
         contents: [
             {
                 title: "Konsultasi Hukum",
-                href: "/konsultasi",
+                href: "/consultation",
             },
             {
                 title: "Perkara Perdata/Bisnis",
-                href: "/layanan",
+                href: "/services#perkara-perdata",
             },
             {
                 title: "Perkara Pidana",
-                href: "/layanan",
+                href: "/services#perkara-pidana",
             },
             {
                 title: "Perkara Tata Usaha Negara",
-                href: "/layanan",
+                href: "/services#perkara-tata-usaha",
             },
         ],
     },
@@ -58,7 +58,7 @@ const Footer = () => {
                             />
                             <span className="font-bold text-3xl">SiBudhi</span>
                         </Link>
-                        <p className="text-center lg:text-justify text-lg">
+                        <p className="text-center lg:text-justify font-normal text-lg">
                             Sibudhi merupakan platform legal yang menghubungkan
                             profesional hukum dengan masyarakat pencari kedilan.
                         </p>

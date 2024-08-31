@@ -11,20 +11,16 @@ class ConsultationController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Consult/page', [
-            'advocates' => Advocate::with('expertises', 'user')->get(),
-        ]);
+        return Inertia::render('Consult/page');
     }
 
     public function data(Request $request)
     {
         // if ($request->ajax()) {
         $search = $request->query("search");
-        // dd($search);
 
         $advocates = Advocate::with('expertises')->join('users', 'advocates.user_id', 'users.id')->where("users.name", "LIKE", "%$search%")->select('users.*', 'advocates.*')->get();
         return response()->json($advocates);
-        // return "ok";
         // }
     }
 }

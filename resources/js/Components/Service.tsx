@@ -32,12 +32,12 @@ const ourServices = [
 const Service = () => {
     return (
         <section className="w-full">
-            <div className="container max-w-screen-lg flex flex-col gap-14 justify-start items-center py-24">
-                <div className="text-center space-y-12">
-                    <h2 className="font-bold text-3xl">
-                        Mengapa memilih SiBudhi?
+            <div className="container max-w-screen-lg flex flex-col gap-14 justify-start items-center py-20">
+                <div className="text-center space-y-4">
+                    <h2 className="font-bold text-3xl text-center">
+                        Layanan Hukum yang Kami Tawarkan
                     </h2>
-                    <p className="font-medium text-2xl">
+                    <p className="font-medium text-base lg:text-lg">
                         “Kami menyediakan berbagai layanan hukum untuk membantu
                         Anda mengatasi berbagai masalah hukum dengan cepat dan
                         efisien.”
