@@ -72,7 +72,7 @@ const ServiceForm = () => {
                         Lengkapi Formulir Pengajuan Perkara Berikut
                     </h3>
 
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex flex-col md:flex-row flex-wrap gap-4">
                         <div className="flex-1">
                             <FormField
                                 control={form.control}
@@ -127,7 +127,7 @@ const ServiceForm = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex flex-col md:flex-row flex-wrap gap-4">
                         <div className="flex-1">
                             <FormField
                                 control={form.control}
@@ -182,7 +182,7 @@ const ServiceForm = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex flex-col md:flex-row flex-wrap gap-4">
                         <div className="flex-1">
                             <FormField
                                 control={form.control}
