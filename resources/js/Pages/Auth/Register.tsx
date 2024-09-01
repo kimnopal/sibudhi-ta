@@ -57,14 +57,14 @@ export default function Register() {
         <GuestLayout>
             <Head title="Register" />
 
-            <h2 className="font-bold text-xl text-center">
+            <h2 className="font-bold text-xl text-center container">
                 Daftar Sekarang! <br /> Dapatkan Layanan Hukum Terbaik!
             </h2>
 
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="w-full max-w-sm flex flex-col gap-4"
+                    className="w-full max-w-sm flex flex-col gap-4 container"
                 >
                     <FormField
                         control={form.control}

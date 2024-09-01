@@ -2,10 +2,10 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import { submissions } from "./data";
 import Submission from "./components/Submission";
 
-const page = () => {
+const page = ({ reports }: any) => {
     return (
         <DashboardLayout>
-            <Submission submissions={submissions} />
+            <Submission submissions={reports} />
         </DashboardLayout>
     );
 };

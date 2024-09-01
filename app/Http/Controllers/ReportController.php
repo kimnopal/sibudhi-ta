@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advocate;
 use App\Models\Report;
+use App\Models\Reporter;
 use App\Models\Service;
 use App\Models\ServiceType;
 use Illuminate\Http\Request;
@@ -14,7 +16,19 @@ class ReportController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Dashboard/page');
+        $reports = [];
+
+        $advocate = Advocate::where('user_id', Auth::user()->id)->first();
+        if ($advocate) {
+            $reports = Report::with(['service', 'service_type'])->get();
+        } else {
+            // $reporter = Reporter::where('user_id', Auth::user()->id)->first();
+            $reports = Report::with(['service', 'service_type'])->where('user_id', Auth::user()->id)->get();
+        }
+
+        return Inertia::render('Dashboard/Submission/page', [
+            'reports' => $reports,
+        ]);
     }
 
     public function store(Request $request)
@@ -49,5 +63,13 @@ class ReportController extends Controller
 
         Report::create($request->all());
         return redirect()->back()->with('success', ['Berhasil mengirim laporan', 'Kami akan segera menghubungi anda!']);
+    }
+
+    public function show($id)
+    {
+        $report = Report::with(['service', 'service_type'])->find($id);
+        return Inertia::render('Dashboard/Submission/show', [
+            'submission' => $report,
+        ]);
     }
 }

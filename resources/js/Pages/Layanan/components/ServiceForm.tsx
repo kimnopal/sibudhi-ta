@@ -48,7 +48,7 @@ const ServiceForm = ({ services }: any) => {
     };
 
     return (
-        <section className="w-full py-10" id="Form Layanan">
+        <section className="w-full py-10" id="form-layanan">
             <form
                 onSubmit={onSubmit}
                 className="max-w-screen-lg container space-y-4 py-10 mx-auto bg-popover text-popover-foreground rounded-3xl"

@@ -1,4 +1,4 @@
-import { Link, usePage } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 ("use client");
 
 import { cn } from "@/lib/utils";
@@ -100,6 +100,10 @@ const Navbar = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    const handleLogout = () => {
+        router.delete("/logout");
+    };
+
     return (
         <nav
             className={`fixed top-0 left-0 right-0 ${
@@ -131,7 +135,7 @@ const Navbar = () => {
                     <SheetContent side="right" className="sm:max-w-xs">
                         <nav className="grid gap-6 text-lg font-medium">
                             <Link
-                                href="https://soedirmanrobotic.com"
+                                href="https://sibudhi.com"
                                 className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full text-lg font-semibold text-primary-foreground md:text-base"
                             >
                                 <img src={Logo} alt="" className="h-8" />
@@ -159,17 +163,18 @@ const Navbar = () => {
                                             </div>
                                         </div>
                                         <Link
-                                            href="/dashboard"
+                                            href="/reports"
                                             className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                                         >
                                             Lihat Laporan
                                         </Link>
-                                        <Link
-                                            href="/logout"
-                                            className="flex items-center gap-4 px-2.5 text-destructive hover:text-foreground"
+                                        <Button
+                                            onClick={handleLogout}
+                                            variant={"destructive"}
+                                            className="flex items-center gap-4 px-2.5 text-white hover:text-white/80"
                                         >
                                             Logout
-                                        </Link>
+                                        </Button>
                                     </div>
                                     <Separator dir="horizontal" />
                                 </>
@@ -334,17 +339,36 @@ const Navbar = () => {
                                             </Avatar>
                                         </Button>
                                     </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
+                                    <DropdownMenuContent
+                                        align="end"
+                                        className="w-[200px]"
+                                    >
                                         <DropdownMenuLabel>
-                                            My Account
+                                            <div className="flex flex-col justify-center items-start gap-1 text-xs">
+                                                <span className="font-light text-sm">
+                                                    {auth.user.name}
+                                                </span>
+                                                <span className="font-light text-xs">
+                                                    {auth.user.email}
+                                                </span>
+                                            </div>
                                         </DropdownMenuLabel>
                                         <DropdownMenuSeparator />
-                                        <DropdownMenuItem>
-                                            Lihat Laporan
-                                        </DropdownMenuItem>
+                                        <Link href="/reports">
+                                            <DropdownMenuItem>
+                                                Lihat Laporan
+                                            </DropdownMenuItem>
+                                        </Link>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem>
-                                            Logout
+                                            <Button
+                                                variant={"destructive"}
+                                                className="w-full"
+                                                size={"sm"}
+                                                onClick={handleLogout}
+                                            >
+                                                Logout
+                                            </Button>
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>

@@ -54,7 +54,7 @@ export default function Login({
         <GuestLayout>
             <Head title="Log in" />
 
-            <h2 className="font-bold text-xl text-center">
+            <h2 className="font-bold text-xl text-center container">
                 Selamat Datang Kembali! <br /> Akses Layanan Hukum Anda dengan
                 Mudah dan Cepat
             </h2>
@@ -68,7 +68,7 @@ export default function Login({
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="w-full max-w-sm flex flex-col gap-4"
+                    className="w-full max-w-sm flex flex-col gap-4 container"
                 >
                     <FormField
                         control={form.control}

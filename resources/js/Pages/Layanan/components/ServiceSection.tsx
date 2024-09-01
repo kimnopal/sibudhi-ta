@@ -8,6 +8,7 @@ interface ServiceSectionProps {
     image: string;
     href: string;
     id: string;
+    buttonText: string;
 }
 
 const ServiceSection = (props: ServiceSectionProps) => {
@@ -20,7 +21,7 @@ const ServiceSection = (props: ServiceSectionProps) => {
                 <h2 className="font-bold text-3xl">{props.title}</h2>
                 <p className="font-medium text-justify">{props.description}</p>
                 <Link href={props.href}>
-                    <Button>Konsultasi Sekarang</Button>
+                    <Button>{props.buttonText}</Button>
                 </Link>
             </div>
             <div className="flex-1">

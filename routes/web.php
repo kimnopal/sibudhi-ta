@@ -27,7 +27,7 @@ Route::get("/register", [AuthController::class, 'register'])->name('register');
 Route::post("/register", [AuthController::class, 'doRegister'])->name('doRegister');
 Route::get("/login", [AuthController::class, 'login'])->name('login');
 Route::post("/login", [AuthController::class, 'doLogin'])->name('doLogin');
-Route::post("/logout", [AuthController::class, 'logout'])->name('logout');
+Route::delete("/logout", [AuthController::class, 'logout'])->name('logout');
 
 Route::get("/services", [ServiceController::class, 'index'])->name('services');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
@@ -38,4 +38,5 @@ Route::get('/consultation/data', [ConsultationController::class, 'data'])->name(
 
 Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
 Route::post('/reports', [ReportController::class, 'store'])->name('report.store');
+Route::get('/reports/{id}', [ReportController::class, 'show'])->name('report.show');
 // require __DIR__ . '/auth.php';
