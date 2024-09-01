@@ -32,9 +32,9 @@ const ourServices = [
 const Service = () => {
     return (
         <section className="w-full">
-            <div className="container max-w-screen-lg flex flex-col gap-14 justify-start items-center py-20">
+            <div className="container max-w-screen-lg flex flex-col gap-14 justify-start items-center py-14">
                 <div className="text-center space-y-4">
-                    <h2 className="font-bold text-3xl text-center">
+                    <h2 className="font-bold text-3xl lg:text-4xl text-center">
                         Layanan Hukum yang Kami Tawarkan
                     </h2>
                     <p className="font-medium text-base lg:text-lg">
@@ -43,7 +43,7 @@ const Service = () => {
                         efisien.”
                     </p>
                 </div>
-                <div className="flex-1 container flex md:grid flex-col md:grid-cols-2 justify-between items-start gap-5">
+                <div className="flex-1 flex md:grid flex-col md:grid-cols-2 justify-between items-start gap-5">
                     {ourServices.map((service, index) => (
                         <ServiceItem
                             title={service.title}

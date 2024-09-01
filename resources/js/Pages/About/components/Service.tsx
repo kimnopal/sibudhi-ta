@@ -9,8 +9,8 @@ const ourServices = [
 
 const Service = () => {
     return (
-        <section className="container max-w-screen-lg space-y-6 py-5">
-            <h2 className="font-bold text-2xl">
+        <section className="container max-w-screen-lg space-y-4 md:space-y-5 py-5">
+            <h2 className="font-bold text-2xl md:text-3xl">
                 Layanan yang kami sediakan meliputi :
             </h2>
             <ol

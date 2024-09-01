@@ -31,8 +31,8 @@ const ourValues = [
 const Value = () => {
     return (
         <section className="w-full bg-subtle">
-            <div className="container max-w-screen-lg flex flex-col gap-14 justify-start items-center py-20">
-                <h2 className="font-bold text-3xl text-center">
+            <div className="container max-w-screen-lg flex flex-col gap-14 justify-start items-center py-14">
+                <h2 className="font-bold text-3xl lg:text-4xl text-center">
                     Mengapa memilih SiBudhi?
                 </h2>
                 <div className="flex-1 w-full flex flex-col md:flex-row justify-between items-start gap-12">

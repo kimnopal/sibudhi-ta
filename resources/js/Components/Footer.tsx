@@ -46,7 +46,7 @@ const footSocials = [
 
 const Footer = () => {
     return (
-        <footer className="bg-primary text-primary-foreground w-full px-4 pt-8">
+        <footer className="bg-primary text-primary-foreground w-full pt-8">
             <div className="container max-w-screen-lg mx-auto flex flex-col py-8 gap-4">
                 <div className="flex justify-between gap-x-10 gap-y-8 flex-wrap flex-col md:flex-row">
                     <div className="w-full md:max-w-sm flex flex-col gap-6 items-center lg:items-start">
@@ -118,7 +118,7 @@ const Footer = () => {
                 <Separator />
                 <div className="flex justify-center md:justify-between flex-wrap-reverse gap-y-4 items-center">
                     <p>© 2024 Sibudhi</p>
-                    <ul className="flex gap-6 items-center">
+                    <ul className="flex flex-wrap justify-center gap-6 items-center">
                         {footSocials.map((item, index) => (
                             <li key={index}>
                                 <Link href={item.href}>{item.logo}</Link>

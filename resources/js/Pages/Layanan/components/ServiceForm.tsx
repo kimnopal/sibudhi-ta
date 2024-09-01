@@ -48,12 +48,12 @@ const ServiceForm = ({ services }: any) => {
     };
 
     return (
-        <section className="w-full py-12" id="Form Layanan">
+        <section className="w-full py-10" id="Form Layanan">
             <form
                 onSubmit={onSubmit}
-                className="max-w-screen-lg space-y-4 mx-auto p-12 bg-popover text-popover-foreground rounded-3xl"
+                className="max-w-screen-lg container space-y-4 py-10 mx-auto bg-popover text-popover-foreground rounded-3xl"
             >
-                <h3 className="max-w-lg text-center font-bold text-3xl mx-auto">
+                <h3 className="max-w-lg text-center font-bold text-3xl mx-auto text-primary">
                     Lengkapi Formulir Pengajuan Perkara Berikut
                 </h3>
 

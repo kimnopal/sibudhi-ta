@@ -25,7 +25,7 @@ const page = () => {
 
     return (
         <Layout>
-            <section className="container max-w-screen-lg space-y-6  py-16">
+            <section className="container max-w-screen-lg space-y-6  py-14">
                 <h1 className="font-bold text-3xl">
                     Temukan Advokat Pilihan Anda
                 </h1>
