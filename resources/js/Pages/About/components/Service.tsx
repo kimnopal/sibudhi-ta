@@ -9,11 +9,14 @@ const ourServices = [
 
 const Service = () => {
     return (
-        <section className="container max-w-screen-lg space-y-6 py-12">
+        <section className="container max-w-screen-lg space-y-6 py-5">
             <h2 className="font-bold text-2xl">
                 Layanan yang kami sediakan meliputi :
             </h2>
-            <ol type="1" className="font-medium list-decimal space-y-2">
+            <ol
+                type="1"
+                className="font-medium list-decimal space-y-2 list-inside"
+            >
                 {ourServices.map((service, index) => (
                     <li key={index}>{service}</li>
                 ))}

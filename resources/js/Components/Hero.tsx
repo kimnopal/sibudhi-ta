@@ -4,10 +4,10 @@ import { Link } from "@inertiajs/react";
 
 const Hero = () => {
     return (
-        <section className="container max-w-screen-lg flex flex-col-reverse md:flex-row justify-between items-center gap-12 md:gap-0 py-36">
-            <div className="flex-1 flex flex-col space-y-12">
-                <div className="space-y-10">
-                    <h1 className="text-5xl font-bold">
+        <section className="container max-w-screen-lg flex flex-col-reverse md:flex-row justify-between items-center gap-10  md:gap-0 py-20">
+            <div className="flex-1 flex flex-col space-y-8">
+                <div className="space-y-3">
+                    <h1 className="text-3xl lg:text-4xl font-bold">
                         Solusi Cepat untuk Pengaduan Hukum Anda
                     </h1>
                     <p className="font-medium text-lg mt-4">
