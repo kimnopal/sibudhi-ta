@@ -3,31 +3,49 @@ export const submissions = [
         id: "6c84fb90-12c4-11e1-840d-7b25c5ee775a",
         name: "William Smith",
         email: "williamsmith@example.com",
-        subject: "Perkara Perdata",
-        text: "Hi, let's have a meeting tomorrow to discuss the project. I've been reviewing the project details and have some ideas I'd like to share. It's crucial that we align on our next steps to ensure the project's success.\n\nPlease come prepared with any questions or insights you may have. Looking forward to our meeting!\n\nBest regards, William",
+        phone: "6212345678912",
+        service: {
+            name: "Perkara Perdata",
+        },
+        service_type: {
+            name: "Penggugat",
+        },
+        description:
+            "Hi, let's have a meeting tomorrow to discuss the project. I've been reviewing the project details and have some ideas I'd like to share. It's crucial that we align on our next steps to ensure the project's success.\n\nPlease come prepared with any questions or insights you may have. Looking forward to our meeting!\n\nBest regards, William",
         date: "2023-10-22T09:00:00",
         read: true,
-        labels: ["Sengketa"],
     },
     {
-        id: "6c84fb90-12c4-11e1-840d-7b25c5ee775a",
+        id: "6c84fb90-12c4-11e1-840d-7b25c5ee775b",
         name: "William Smith",
         email: "williamsmith@example.com",
-        subject: "Perkara Perdata",
-        text: "Hi, let's have a meeting tomorrow to discuss the project. I've been reviewing the project details and have some ideas I'd like to share. It's crucial that we align on our next steps to ensure the project's success.\n\nPlease come prepared with any questions or insights you may have. Looking forward to our meeting!\n\nBest regards, William",
+        phone: "6212345678912",
+        service: {
+            name: "Perkara Perdata",
+        },
+        service_type: {
+            name: "Tergugat",
+        },
+        description:
+            "Hi, let's have a meeting tomorrow to discuss the project. I've been reviewing the project details and have some ideas I'd like to share. It's crucial that we align on our next steps to ensure the project's success.\n\nPlease come prepared with any questions or insights you may have. Looking forward to our meeting!\n\nBest regards, William",
         date: "2023-10-22T09:00:00",
         read: true,
-        labels: ["Sengketa"],
     },
     {
-        id: "6c84fb90-12c4-11e1-840d-7b25c5ee775a",
+        id: "6c84fb90-12c4-11e1-840d-7b25c5ee775c",
         name: "William Smith",
         email: "williamsmith@example.com",
-        subject: "Perkara Perdata",
-        text: "Hi, let's have a meeting tomorrow to discuss the project. I've been reviewing the project details and have some ideas I'd like to share. It's crucial that we align on our next steps to ensure the project's success.\n\nPlease come prepared with any questions or insights you may have. Looking forward to our meeting!\n\nBest regards, William",
+        phone: "6212345678912",
+        service: {
+            name: "Perkara Cerai",
+        },
+        service_type: {
+            name: "Penggugat",
+        },
+        description:
+            "Hi, let's have a meeting tomorrow to discuss the project. I've been reviewing the project details and have some ideas I'd like to share. It's crucial that we align on our next steps to ensure the project's success.\n\nPlease come prepared with any questions or insights you may have. Looking forward to our meeting!\n\nBest regards, William",
         date: "2023-10-22T09:00:00",
         read: true,
-        labels: ["Sengketa"],
     },
 ];
 

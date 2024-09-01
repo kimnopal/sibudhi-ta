@@ -7,11 +7,10 @@ import { PropsWithChildren } from "react";
 const DashboardLayout = ({ children }: PropsWithChildren) => {
     return (
         <>
-            <Navbar />
-            <div className="flex min-h-screen w-full flex-col bg-muted/40 mt-16">
-                {/* <SideBar /> */}
+            <div className="flex min-h-screen w-full flex-col bg-muted/40 mt-20">
                 <main className="">{children}</main>
             </div>
+            <Navbar />
             <Footer />
         </>
     );

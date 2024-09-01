@@ -5,7 +5,7 @@ import Submission from "./components/Submission";
 const page = ({ reports }: any) => {
     return (
         <DashboardLayout>
-            <Submission submissions={reports} />
+            <Submission submissions={submissions} />
         </DashboardLayout>
     );
 };

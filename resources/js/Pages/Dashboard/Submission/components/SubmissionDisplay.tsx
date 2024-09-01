@@ -1,15 +1,7 @@
 import { format } from "date-fns/format";
 import { Submission } from "../data";
 import { Button } from "@/Components/ui/button";
-import {
-    Archive,
-    ArchiveX,
-    Forward,
-    MoreVertical,
-    Reply,
-    ReplyAll,
-    Trash2,
-} from "lucide-react";
+import { MoreVertical } from "lucide-react";
 import { Separator } from "@/Components/ui/separator";
 import {
     DropdownMenu,
@@ -18,9 +10,7 @@ import {
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
-import { Textarea } from "@/Components/ui/textarea";
-import { Label } from "@/Components/ui/label";
-import { Switch } from "@/Components/ui/switch";
+import { Link } from "@inertiajs/react";
 
 interface SubmissionDisplayProps {
     submission: Submission | null;
@@ -29,7 +19,7 @@ interface SubmissionDisplayProps {
 const SubmissionDisplay = ({ submission }: SubmissionDisplayProps) => {
     return (
         <div className="flex h-full flex-col">
-            <div className="flex items-center justify-end p-2">
+            <div className="hidden md:flex items-center justify-end p-2">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button
@@ -49,11 +39,11 @@ const SubmissionDisplay = ({ submission }: SubmissionDisplayProps) => {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <Separator />
+            <Separator className="hidden md:block" />
             {submission ? (
                 <div className="flex flex-1 flex-col">
-                    <div className="flex items-start p-4">
-                        <div className="flex items-start gap-4 text-sm">
+                    <div className="flex flex-col md:flex-row items-start p-4">
+                        <div className="flex flex-col md:flex-row items-start gap-4 text-sm">
                             <Avatar>
                                 <AvatarImage alt={submission.name} />
                                 <AvatarFallback>
@@ -71,20 +61,26 @@ const SubmissionDisplay = ({ submission }: SubmissionDisplayProps) => {
                                     {submission.email}
                                 </div>
                                 <div className="line-clamp-1 text-xs">
-                                    {submission.subject}
+                                    {submission.service.name}
                                 </div>
                             </div>
                         </div>
                         {submission.date && (
-                            <div className="ml-auto text-xs text-muted-foreground">
+                            <div className="md:ml-auto text-xs text-muted-foreground">
                                 {format(new Date(submission.date), "PPpp")}
                             </div>
                         )}
                     </div>
                     <Separator />
-                    <div className="flex-1 whitespace-pre-wrap p-4 text-sm">
-                        {submission.text}
+                    <div className="whitespace-pre-wrap p-4 text-sm">
+                        {submission.description}
                     </div>
+                    <Link
+                        href={`https://wa.me/${submission.phone}`}
+                        className="p-4"
+                    >
+                        <Button className="w-full">Contact via WhatsApp</Button>
+                    </Link>
                 </div>
             ) : (
                 <div className="p-8 text-center text-muted-foreground">
