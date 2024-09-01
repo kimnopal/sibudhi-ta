@@ -1,18 +1,13 @@
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
-import { FolderCheck, Home, PanelLeft, Users2 } from "lucide-react";
-import { Link } from "@inertiajs/react";
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "./ui/breadcrumb";
+import { FolderCheck, Home, PanelLeft } from "lucide-react";
+import { Link, usePage } from "@inertiajs/react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const DashboardHeader = () => {
+    const { auth }: any = usePage().props;
+
     return (
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
             <Sheet>
@@ -42,21 +37,17 @@ const DashboardHeader = () => {
                             href="/Dashboard/Profile"
                             className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                         >
-                            <Users2 className="h-5 w-5" />
+                            <Avatar className="border border-border">
+                                <AvatarImage src="" />
+                                <AvatarFallback>
+                                    {auth.user.name.split(" ")[0][0]}
+                                </AvatarFallback>
+                            </Avatar>{" "}
                             <span className="sr-only">Profile</span>
                         </Link>
                     </nav>
                 </SheetContent>
             </Sheet>
-            <Breadcrumb className="hidden md:flex">
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                            <Link href="/Dashboard">Dashboard</Link>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
         </header>
     );
 };
