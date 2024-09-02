@@ -1,5 +1,6 @@
 import { Link } from "@inertiajs/react";
 import { Separator } from "./ui/separator";
+import { Icons } from "./icons";
 
 const navMenu = [
     {
@@ -28,19 +29,19 @@ const navMenu = [
 const footSocials = [
     {
         href: "https://facebook.com",
-        logo: <img src="./images/icons/facebook.svg" alt="Facebook" />,
+        logo: Icons.facebook({ className: "h-6" }),
     },
     {
         href: "https://twitter.com",
-        logo: <img src="./images/icons/twitter.svg" alt="Twitter" />,
+        logo: Icons.twitter({ className: "h-6" }),
     },
     {
         href: "https://instagram.com",
-        logo: <img src="./images/icons/instagram.svg" alt="Instagram" />,
+        logo: Icons.instagram({ className: "h-6" }),
     },
     {
         href: "https://linkedin.com",
-        logo: <img src="./images/icons/linkedin.svg" alt="Linkedin" />,
+        logo: Icons.linkedin({ className: "h-6" }),
     },
 ];
 
