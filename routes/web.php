@@ -23,20 +23,24 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-Route::get("/register", [AuthController::class, 'register'])->name('register');
-Route::post("/register", [AuthController::class, 'doRegister'])->name('doRegister');
-Route::get("/login", [AuthController::class, 'login'])->name('login');
-Route::post("/login", [AuthController::class, 'doLogin'])->name('doLogin');
-Route::delete("/logout", [AuthController::class, 'logout'])->name('logout');
+Route::middleware('auth')->group(function () {
+    Route::delete("/logout", [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
+    Route::post('/reports', [ReportController::class, 'store'])->name('report.store');
+    Route::get('/reports/{id}', [ReportController::class, 'show'])->name('report.show');
+});
+
+Route::middleware('guest')->group(function () {
+    Route::get("/register", [AuthController::class, 'register'])->name('register');
+    Route::post("/register", [AuthController::class, 'doRegister'])->name('doRegister');
+    Route::get("/login", [AuthController::class, 'login'])->name('login');
+    Route::post("/login", [AuthController::class, 'doLogin'])->name('doLogin');
+});
 
 Route::get("/services", [ServiceController::class, 'index'])->name('services');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 Route::get('/consultation', [ConsultationController::class, 'index'])->name('consultation');
 Route::get('/consultation/data', [ConsultationController::class, 'data'])->name('consultation.data');
-// Route::get('/advocates')
-
-Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
-Route::post('/reports', [ReportController::class, 'store'])->name('report.store');
-Route::get('/reports/{id}', [ReportController::class, 'show'])->name('report.show');
 // require __DIR__ . '/auth.php';

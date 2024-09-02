@@ -23,7 +23,7 @@ export const SubmissionList = ({ items }: SubmissionListProps) => {
                         key={item.id}
                         className={cn(
                             "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent",
-                            submission.selected === item.id && "bg-muted"
+                            submission.selected === item.id && "border-primary"
                         )}
                         onClick={() =>
                             setSubmission({
@@ -35,12 +35,12 @@ export const SubmissionList = ({ items }: SubmissionListProps) => {
                         <div className="flex w-full flex-col gap-1">
                             <div className="flex items-center">
                                 <div className="flex items-center gap-2">
-                                    <div className="font-semibold">
+                                    <div className="font-semibold text-base">
                                         {item.name}
                                     </div>
-                                    {!item.read && (
+                                    {/* {!item.read && (
                                         <span className="flex h-2 w-2 rounded-full bg-blue-600" />
-                                    )}
+                                    )} */}
                                 </div>
                                 <div
                                     className={cn(
@@ -50,12 +50,15 @@ export const SubmissionList = ({ items }: SubmissionListProps) => {
                                             : "text-muted-foreground"
                                     )}
                                 >
-                                    {formatDistanceToNow(new Date(item.date), {
-                                        addSuffix: true,
-                                    })}
+                                    {formatDistanceToNow(
+                                        new Date(item.created_at),
+                                        {
+                                            addSuffix: true,
+                                        }
+                                    )}
                                 </div>
                             </div>
-                            <div className="text-xs font-medium">
+                            <div className="text-xs font-semibold">
                                 {item.service.name}
                             </div>
                         </div>
@@ -63,14 +66,15 @@ export const SubmissionList = ({ items }: SubmissionListProps) => {
                             {item.description.substring(0, 300)}
                         </div>
                         <div className="flex items-center gap-2">
-                            <Badge
-                                key={item.service_type.name}
-                                variant={getBadgeVariantFromLabel(
-                                    item.service_type.name
-                                )}
-                            >
-                                {item.service_type.name}
-                            </Badge>
+                            {item.service_type ? (
+                                <Badge
+                                    key={item.service_type.id}
+                                    variant={"secondary"}
+                                    className="text-xs font-light"
+                                >
+                                    {item.service_type.name}
+                                </Badge>
+                            ) : null}
                         </div>
                         {/* {item.service_type.length ? (
                                 {item.labels.map((label) => (
@@ -104,7 +108,8 @@ export const SubmissionListMobile = ({ items }: SubmissionListProps) => {
                             key={item.id}
                             className={cn(
                                 "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent",
-                                submission.selected === item.id && "bg-muted"
+                                submission.selected === item.id &&
+                                    "border-primary"
                             )}
                             onClick={() =>
                                 setSubmission({
@@ -116,12 +121,12 @@ export const SubmissionListMobile = ({ items }: SubmissionListProps) => {
                             <div className="flex w-full flex-col gap-1">
                                 <div className="flex items-center">
                                     <div className="flex items-center gap-2">
-                                        <div className="font-semibold">
+                                        <div className="font-semibold text-base">
                                             {item.name}
                                         </div>
-                                        {!item.read && (
+                                        {/* {!item.read && (
                                             <span className="flex h-2 w-2 rounded-full bg-blue-600" />
-                                        )}
+                                        )} */}
                                     </div>
                                     <div
                                         className={cn(
@@ -132,14 +137,14 @@ export const SubmissionListMobile = ({ items }: SubmissionListProps) => {
                                         )}
                                     >
                                         {formatDistanceToNow(
-                                            new Date(item.date),
+                                            new Date(item.created_at),
                                             {
                                                 addSuffix: true,
                                             }
                                         )}
                                     </div>
                                 </div>
-                                <div className="text-xs font-medium">
+                                <div className="text-xs font-semibold">
                                     {item.service.name}
                                 </div>
                             </div>
@@ -147,14 +152,15 @@ export const SubmissionListMobile = ({ items }: SubmissionListProps) => {
                                 {item.description.substring(0, 300)}
                             </div>
                             <div className="flex items-center gap-2">
-                                <Badge
-                                    key={item.service_type.name}
-                                    variant={getBadgeVariantFromLabel(
-                                        item.service_type.name
-                                    )}
-                                >
-                                    {item.service_type.name}
-                                </Badge>
+                                {item.service_type ? (
+                                    <Badge
+                                        key={item.service_type.id}
+                                        variant={"secondary"}
+                                        className="text-xs font-light"
+                                    >
+                                        {item.service_type.name}
+                                    </Badge>
+                                ) : null}
                             </div>
                             {/* {item.service_type.length ? (
                                 {item.labels.map((label) => (

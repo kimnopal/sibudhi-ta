@@ -23,7 +23,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 const ServiceForm = ({ services }: any) => {
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
     const { session }: any = usePage().props;
 
     const { data, setData, post, errors, reset } = useForm({
@@ -35,13 +35,13 @@ const ServiceForm = ({ services }: any) => {
         description: "",
         status: "",
     });
-    console.log(session);
 
     const onSubmit = (e: any) => {
         e.preventDefault();
         post("/reports", {
             preserveScroll: true,
             onSuccess: function () {
+                setShowModal(true);
                 reset();
             },
         });
@@ -130,33 +130,29 @@ const ServiceForm = ({ services }: any) => {
                 <div className="flex flex-col md:flex-row flex-wrap gap-4">
                     <div className="flex-1">
                         <div className="space-y-2">
-                            <div className="space-y-2">
-                                <Label
-                                    htmlFor="email"
-                                    className={`${
-                                        errors.email && "text-red-500"
-                                    }`}
-                                >
-                                    Email
-                                </Label>
-                                <Input
-                                    placeholder="yourname@example.com"
-                                    name="email"
-                                    type="email"
-                                    value={data.email}
-                                    onChange={(e: any) =>
-                                        setData("email", e.target.value)
-                                    }
-                                    className={`${
-                                        errors.email && "border-red-500"
-                                    }`}
-                                />
-                                {errors.email && (
-                                    <p className="text-sm text-red-500">
-                                        {errors.email}
-                                    </p>
-                                )}
-                            </div>
+                            <Label
+                                htmlFor="email"
+                                className={`${errors.email && "text-red-500"}`}
+                            >
+                                Email
+                            </Label>
+                            <Input
+                                placeholder="yourname@example.com"
+                                name="email"
+                                type="email"
+                                value={data.email}
+                                onChange={(e: any) =>
+                                    setData("email", e.target.value)
+                                }
+                                className={`${
+                                    errors.email && "border-red-500"
+                                }`}
+                            />
+                            {errors.email && (
+                                <p className="text-sm text-red-500">
+                                    {errors.email}
+                                </p>
+                            )}
                         </div>
                     </div>
 
@@ -329,7 +325,7 @@ const ServiceForm = ({ services }: any) => {
 
             {session.error || session.success ? (
                 <AlertDialog open={showModal} onOpenChange={setShowModal}>
-                    <AlertDialogContent>
+                    <AlertDialogContent className="w-[90%] rounded-lg">
                         <AlertDialogHeader>
                             <AlertDialogTitle>
                                 {session.error

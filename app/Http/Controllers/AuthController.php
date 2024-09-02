@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reporter;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,7 @@ class AuthController extends Controller
             return redirect()->intended("/");
         }
 
-        return back()->with('error', 'Username atau password tidak sesuai, silahkan masukkan dengan benar');
+        return back()->with('error', ['Gagal login', 'Username atau password tidak sesuai, silahkan masukkan dengan benar']);
     }
 
     public function register()
@@ -39,17 +40,25 @@ class AuthController extends Controller
     public function doRegister(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required',
-            'email' => 'required|email',
-            'nik' => 'required',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'nik' => 'required|unique:reporters,nik',
             'password' => 'required',
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        User::create($validatedData);
+        $user = User::create($validatedData);
+        $validatedData['user_id'] = $user->id;
 
-        return redirect("/login")->with("success", 'Akun berhasil dibuat silahkan login');
+        Reporter::create(collect($validatedData)->only('user_id', 'nik'));
+
+        if (Auth::attempt($user->only('email', 'password'))) {
+            $request->session()->regenerate();
+            return redirect()->intended("/");
+        }
+
+        return redirect("/")->with("success", 'Akun berhasil dibuat silahkan login');
     }
 
     public function logout(Request $request)

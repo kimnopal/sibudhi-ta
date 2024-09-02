@@ -3,9 +3,11 @@ import { submissions } from "./data";
 import Submission from "./components/Submission";
 
 const page = ({ reports }: any) => {
+    console.log(reports);
+
     return (
         <DashboardLayout>
-            <Submission submissions={submissions} />
+            <Submission submissions={reports} />
         </DashboardLayout>
     );
 };

@@ -47,7 +47,7 @@ const Submission = ({ submissions }: SubmissionProps) => {
                                     <h1 className="text-xl font-bold">
                                         Daftar Laporan
                                     </h1>
-                                    <TabsList className="ml-auto">
+                                    {/* <TabsList className="ml-auto">
                                         <TabsTrigger
                                             value="all"
                                             className="text-zinc-600 dark:text-zinc-200"
@@ -60,7 +60,7 @@ const Submission = ({ submissions }: SubmissionProps) => {
                                         >
                                             Baru
                                         </TabsTrigger>
-                                    </TabsList>
+                                    </TabsList> */}
                                 </div>
                                 <Separator />
                                 <div className="bg-background/95 py-4 md:p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -93,14 +93,11 @@ const Submission = ({ submissions }: SubmissionProps) => {
                                     <SubmissionList
                                         items={submissions.filter(
                                             (item) =>
-                                                (item.name.includes(search) ||
-                                                    item.email.includes(
-                                                        search
-                                                    ) ||
-                                                    item.description.includes(
-                                                        search
-                                                    )) &&
-                                                !item.read
+                                                item.name.includes(search) ||
+                                                item.email.includes(search) ||
+                                                item.description.includes(
+                                                    search
+                                                )
                                         )}
                                     />
                                 </TabsContent>
@@ -127,7 +124,7 @@ const Submission = ({ submissions }: SubmissionProps) => {
                             <h1 className="text-xl font-bold">
                                 Daftar Laporan
                             </h1>
-                            <TabsList className="ml-auto">
+                            {/* <TabsList className="ml-auto">
                                 <TabsTrigger
                                     value="all"
                                     className="text-zinc-600 dark:text-zinc-200"
@@ -140,7 +137,7 @@ const Submission = ({ submissions }: SubmissionProps) => {
                                 >
                                     Baru
                                 </TabsTrigger>
-                            </TabsList>
+                            </TabsList> */}
                         </div>
                         <Separator />
                         <div className="bg-background/95 py-4 md:p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -167,19 +164,16 @@ const Submission = ({ submissions }: SubmissionProps) => {
                                 )}
                             />
                         </TabsContent>
-                        <TabsContent value="new" className="m-0">
+                        {/* <TabsContent value="new" className="m-0">
                             <SubmissionListMobile
                                 items={submissions.filter(
                                     (item) =>
-                                        (item.name.includes(search) ||
-                                            item.email.includes(search) ||
-                                            item.description.includes(
-                                                search
-                                            )) &&
-                                        !item.read
+                                        item.name.includes(search) ||
+                                        item.email.includes(search) ||
+                                        item.description.includes(search)
                                 )}
                             />
-                        </TabsContent>
+                        </TabsContent> */}
                     </Tabs>
                     <SheetContent side="bottom">
                         <SubmissionDisplay

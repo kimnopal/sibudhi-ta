@@ -1,35 +1,18 @@
-import { FormEventHandler } from "react";
+import { FormEventHandler, useState } from "react";
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, Link, router } from "@inertiajs/react";
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-} from "@/Components/ui/form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import { Input } from "@/Components/ui/input";
 import { Button } from "@/Components/ui/button";
-
-const formSchema = z.object({
-    email: z
-        .string({ message: "" })
-        .email({ message: "" })
-        .min(2, { message: "" })
-        .max(50, { message: "" }),
-    password: z
-        .string({
-            message: "",
-        })
-        .min(8, {
-            message: "",
-        })
-        .max(50, { message: "" }),
-});
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/Components/ui/alert-dialog";
+import { Label } from "@/Components/ui/label";
 
 export default function Login({
     status,
@@ -38,16 +21,22 @@ export default function Login({
     status?: string;
     canResetPassword: boolean;
 }) {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            email: "",
-            password: "",
-        },
+    const [showModal, setShowModal] = useState(false);
+    const { data, setData, errors, post } = useForm({
+        email: "",
+        password: "",
     });
 
-    async function onSubmit(values: z.infer<typeof formSchema>) {
-        router.post("/login", values);
+    const { session }: any = usePage().props;
+
+    async function onSubmit(e: any) {
+        e.preventDefault();
+        post("/login", {
+            preserveScroll: true,
+            onSuccess: function () {
+                setShowModal(true);
+            },
+        });
     }
 
     return (
@@ -64,55 +53,88 @@ export default function Login({
                     {status}
                 </div>
             )}
-
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="w-full max-w-sm flex flex-col gap-4 container"
-                >
-                    <FormField
-                        control={form.control}
+            <form
+                onSubmit={onSubmit}
+                className="w-full max-w-sm flex flex-col gap-4 container"
+            >
+                <div className="space-y-2">
+                    <Label
+                        htmlFor="email"
+                        className={`${errors.email && "text-red-500"}`}
+                    >
+                        Email
+                    </Label>
+                    <Input
+                        placeholder="yourname@example.com"
                         name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="yourname@example.com"
-                                        {...field}
-                                    />
-                                </FormControl>
-                            </FormItem>
-                        )}
+                        type="email"
+                        value={data.email}
+                        onChange={(e: any) => setData("email", e.target.value)}
+                        className={`${errors.email && "border-red-500"}`}
                     />
-                    <FormField
-                        control={form.control}
+                    {errors.email && (
+                        <p className="text-sm text-red-500">{errors.email}</p>
+                    )}
+                </div>
+
+                <div className="space-y-2">
+                    <Label
+                        className={`${errors.password && "text-red-500"}`}
+                        htmlFor="password"
+                    >
+                        Password
+                    </Label>
+                    <Input
+                        className={`${errors.password && "border-red-500"}`}
+                        placeholder="********"
                         name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Password</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="********"
-                                        type="password"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormDescription className="flex justify-end font-medium text-secondary">
-                                    <Link href="/">Lupa Password?</Link>
-                                </FormDescription>
-                            </FormItem>
-                        )}
+                        type="password"
+                        value={data.password}
+                        onChange={(e: any) =>
+                            setData("password", e.target.value)
+                        }
                     />
-                    <Button type="submit">Masuk</Button>
-                    <p className="font-medium text-center">
-                        Belum memiliki akun?{" "}
-                        <Link href="/register" className="text-secondary">
-                            Daftar Disini
-                        </Link>
-                    </p>
-                </form>
-            </Form>
+
+                    {errors.password && (
+                        <p className="text-sm text-red-500">
+                            {errors.password}
+                        </p>
+                    )}
+                </div>
+
+                <p className="text-sm flex justify-end font-medium text-secondary">
+                    <Link href="/">Lupa Password?</Link>
+                </p>
+                <Button type="submit">Masuk</Button>
+                <p className="font-medium text-center">
+                    Belum memiliki akun?{" "}
+                    <Link href="/register" className="text-secondary">
+                        Daftar Disini
+                    </Link>
+                </p>
+            </form>
+
+            {session.error || session.success ? (
+                <AlertDialog open={showModal} onOpenChange={setShowModal}>
+                    <AlertDialogContent className="w-[90%] rounded-lg">
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>
+                                {session.error
+                                    ? session.error[0]
+                                    : session.success[0]}
+                            </AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <AlertDialogDescription>
+                            {session.error
+                                ? session.error[1]
+                                : session.success[1]}
+                        </AlertDialogDescription>
+                        <AlertDialogFooter>
+                            <AlertDialogAction>Tutup</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+            ) : null}
         </GuestLayout>
     );
 }

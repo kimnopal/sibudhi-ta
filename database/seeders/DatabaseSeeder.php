@@ -28,24 +28,28 @@ class DatabaseSeeder extends Seeder
             'name' => 'Naufal',
             'email' => 'naufal@example.com',
             'password' => Hash::make('12345678'),
+            'role' => 'reporter',
         ]);
 
         User::create([
             'name' => 'Dedi Subekti, S.H',
             'email' => 'dedisubekti@example.com',
             'password' => Hash::make('12345678'),
+            'role' => 'advocate',
         ]);
 
         User::create([
             'name' => 'Marlistiyono, S.H',
             'email' => 'marlistiyono@example.com',
             'password' => Hash::make('12345678'),
+            'role' => 'advocate',
         ]);
 
         User::create([
             'name' => 'Vega Wardhani, S.H',
             'email' => 'vegawardhani@example.com',
             'password' => Hash::make('12345678'),
+            'role' => 'advocate',
         ]);
 
         // Keahlian

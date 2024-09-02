@@ -49,7 +49,32 @@ export const submissions = [
     },
 ];
 
-export type Submission = (typeof submissions)[number];
+// export type Submission = (typeof submissions)[number];
+export type Submission = {
+    id: number;
+    user_id: number;
+    service_id: number;
+    service_type_id?: number;
+    name: string;
+    email: string;
+    no_handphone: string;
+    status?: string;
+    description: string;
+    created_at: string;
+    updated_at: string;
+    service: {
+        id: number;
+        name: string;
+        created_at: string;
+        updated_at: string;
+    };
+    service_type?: {
+        id: 2;
+        name: string;
+        created_at: string;
+        updated_at: string;
+    };
+};
 
 export const contacts = [
     {

@@ -10,13 +10,15 @@ import {
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 
 interface SubmissionDisplayProps {
     submission: Submission | null;
 }
 
 const SubmissionDisplay = ({ submission }: SubmissionDisplayProps) => {
+    const { auth }: any = usePage().props;
+
     return (
         <div className="flex h-full flex-col">
             <div className="hidden md:flex items-center justify-end p-2">
@@ -54,20 +56,23 @@ const SubmissionDisplay = ({ submission }: SubmissionDisplayProps) => {
                                 </AvatarFallback>
                             </Avatar>
                             <div className="grid gap-1">
-                                <div className="font-semibold">
+                                <div className="font-semibold text-base">
                                     {submission.name}
                                 </div>
                                 <div className="line-clamp-1 text-xs">
                                     {submission.email}
                                 </div>
-                                <div className="line-clamp-1 text-xs">
+                                <div className="line-clamp-1 text-xs font-semibold">
                                     {submission.service.name}
                                 </div>
                             </div>
                         </div>
-                        {submission.date && (
+                        {submission.created_at && (
                             <div className="md:ml-auto text-xs text-muted-foreground">
-                                {format(new Date(submission.date), "PPpp")}
+                                {format(
+                                    new Date(submission.created_at),
+                                    "PPpp"
+                                )}
                             </div>
                         )}
                     </div>
@@ -75,12 +80,18 @@ const SubmissionDisplay = ({ submission }: SubmissionDisplayProps) => {
                     <div className="whitespace-pre-wrap p-4 text-sm">
                         {submission.description}
                     </div>
-                    <Link
-                        href={`https://wa.me/${submission.phone}`}
-                        className="p-4"
-                    >
-                        <Button className="w-full">Contact via WhatsApp</Button>
-                    </Link>
+
+                    {auth.user.role == "advocate" ? (
+                        <a
+                            href={`https://wa.me/${submission.no_handphone}`}
+                            target="_blank"
+                            className="p-4"
+                        >
+                            <Button className="w-full">
+                                Contact via WhatsApp
+                            </Button>
+                        </a>
+                    ) : null}
                 </div>
             ) : (
                 <div className="p-8 text-center text-muted-foreground">
