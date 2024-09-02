@@ -46,19 +46,22 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+        $passBeforeHash = $validatedData['password'];
+
         $validatedData['password'] = Hash::make($validatedData['password']);
+        $validatedData['role'] = 'reporter';
 
         $user = User::create($validatedData);
         $validatedData['user_id'] = $user->id;
 
-        Reporter::create(collect($validatedData)->only('user_id', 'nik'));
+        Reporter::create(collect($validatedData)->only('user_id', 'nik')->toArray());
 
-        if (Auth::attempt($user->only('email', 'password'))) {
+        if (Auth::attempt(['email' => $user->email, 'password' => $passBeforeHash])) {
             $request->session()->regenerate();
             return redirect()->intended("/");
         }
 
-        return redirect("/")->with("success", 'Akun berhasil dibuat silahkan login');
+        // return redirect("/")->with("success", 'Akun berhasil dibuat silahkan login');
     }
 
     public function logout(Request $request)

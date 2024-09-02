@@ -52,6 +52,13 @@ class DatabaseSeeder extends Seeder
             'role' => 'advocate',
         ]);
 
+        User::create([
+            'name' => 'Hakim',
+            'email' => 'hakim@example.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'reporter',
+        ]);
+
         // Keahlian
         Expertise::create([
             'name' => 'Pidana',
@@ -126,6 +133,11 @@ class DatabaseSeeder extends Seeder
             'user_id' => 1,
         ]);
 
+        Reporter::create([
+            'nik' => '12345678123456789',
+            'user_id' => 5,
+        ]);
+
         // Layanan
         Service::create([
             'name' => 'Perkara Perdata/Bisnis'
@@ -178,6 +190,15 @@ class DatabaseSeeder extends Seeder
             'email' => 'naufal@gmail.com',
             'no_handphone' => '081234567890',
             'description' => 'lorem ipsum dolor sit amet',
+        ]);
+
+        Report::create([
+            'user_id' => 5,
+            'service_id' => 1,
+            'name' => 'Naufal',
+            'email' => 'naufal@gmail.com',
+            'no_handphone' => '081234567890',
+            'description' => 'Test deskripsi laporan',
         ]);
     }
 }
