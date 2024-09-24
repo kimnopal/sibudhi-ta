@@ -1,13 +1,14 @@
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { submissions } from "./data";
 import Submission from "./components/Submission";
+import { Head } from "@inertiajs/react";
 
-const page = ({ reports }: any) => {
-    console.log(reports);
+const page = ({ reports, services }: any) => {
 
     return (
         <DashboardLayout>
-            <Submission submissions={reports} />
+            <Head title="Laporan" />
+            <Submission submissions={reports} services={services} />
         </DashboardLayout>
     );
 };

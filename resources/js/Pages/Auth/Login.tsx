@@ -41,7 +41,7 @@ export default function Login({
 
     return (
         <GuestLayout>
-            <Head title="Log in" />
+            <Head title="Masuk" />
 
             <h2 className="font-bold text-xl text-center container">
                 Selamat Datang Kembali! <br /> Akses Layanan Hukum Anda dengan

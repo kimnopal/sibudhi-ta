@@ -2,6 +2,7 @@ import { Input } from "@/Components/ui/input";
 import Layout from "@/Layouts/Layout";
 import AdvocateCard from "./components/AdvocateCard";
 import { useEffect, useState } from "react";
+import { Head } from "@inertiajs/react";
 
 const page = () => {
     const [search, setSearch] = useState<string>("");
@@ -25,6 +26,7 @@ const page = () => {
 
     return (
         <Layout>
+            <Head title="Konsultasi Hukum" />
             <section className="container max-w-screen-lg space-y-6  py-14">
                 <h1 className="font-bold text-3xl">
                     Temukan Advokat Pilihan Anda

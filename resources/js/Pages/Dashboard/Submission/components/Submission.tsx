@@ -17,12 +17,12 @@ import { Sheet, SheetContent } from "@/Components/ui/sheet";
 
 interface SubmissionProps {
     submissions: Submission[];
+    services: any
 }
 
-const Submission = ({ submissions }: SubmissionProps) => {
+const Submission = ({ submissions, services }: SubmissionProps) => {
     const [submission] = useSubmission();
     const [search, setSearch] = useState<string>("");
-    console.log(submissions);
 
     return (
         <section className="relative container max-w-screen-lg">
@@ -112,6 +112,7 @@ const Submission = ({ submissions }: SubmissionProps) => {
                                             item.id === submission.selected
                                     ) || null
                                 }
+                                services={services}
                             />
                         </ResizablePanel>
                     </ResizablePanelGroup>
@@ -182,6 +183,7 @@ const Submission = ({ submissions }: SubmissionProps) => {
                                     (item) => item.id === submission.selected
                                 ) || null
                             }
+                            services={services}
                         />
                     </SheetContent>
                 </Sheet>

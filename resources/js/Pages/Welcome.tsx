@@ -23,7 +23,7 @@ export default function Welcome({
 
     return (
         <Layout>
-            <Head title="Welcome" />
+            <Head title="Beranda" />
             <Hero />
             <Value />
             <Service />

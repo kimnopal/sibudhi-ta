@@ -1,6 +1,7 @@
 import Layout from "@/Layouts/Layout";
 import ServiceSection from "./components/ServiceSection";
 import ServiceForm from "./components/ServiceForm";
+import { Head } from "@inertiajs/react";
 
 const ourServices = [
     {
@@ -44,6 +45,7 @@ const ourServices = [
 const LayananPage = ({ services }: any) => {
     return (
         <Layout>
+            <Head title="Layanan" />
             {ourServices.map((service, index) => (
                 <ServiceSection key={index} {...service} />
             ))}

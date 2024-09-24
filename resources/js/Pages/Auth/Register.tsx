@@ -37,7 +37,7 @@ export default function Register() {
 
     return (
         <GuestLayout>
-            <Head title="Register" />
+            <Head title="Registrasi" />
 
             <h2 className="font-bold text-xl text-center container">
                 Daftar Sekarang! <br /> Dapatkan Layanan Hukum Terbaik!
