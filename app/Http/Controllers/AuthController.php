@@ -12,32 +12,42 @@ use Inertia\Inertia;
 
 class AuthController extends Controller
 {
-    public function login()
+    public function login(Request $request)
     {
-        return Inertia::render("Auth/Login");
-    }
-
-    public function doLogin(Request $request)
-    {
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($validatedData)) {
-            $request->session()->regenerate();
-            return redirect()->intended("/");
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => $validator->getMessageBag(),
+                'data' => []
+            ]);
         }
 
-        return back()->with('error', ['Gagal login', 'Username atau password tidak sesuai, silahkan masukkan dengan benar']);
+        if (Auth::attempt($validator->validated())) {
+            Auth::user()->tokens()->delete();
+            $token = Auth::user()->createToken('auth_token')->plainTextToken;
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Berhasil Login',
+                'data' => [
+                    'token' => $token,
+                ]
+            ]);
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Username atau password tidak sesuai, silahkan masukkan dengan benar',
+            'data' => [],
+        ]);
     }
 
-    public function register()
-    {
-        return Inertia::render("Auth/Register");
-    }
-
-    public function doRegister(Request $request)
+    public function register(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required',
@@ -56,10 +66,11 @@ class AuthController extends Controller
 
         Reporter::create(collect($validatedData)->only('user_id', 'nik')->toArray());
 
-        if (Auth::attempt(['email' => $user->email, 'password' => $passBeforeHash])) {
-            $request->session()->regenerate();
-            return redirect()->intended("/");
-        }
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil Register',
+            'data' => $request->all(),
+        ]);
 
         // return redirect("/")->with("success", 'Akun berhasil dibuat silahkan login');
     }

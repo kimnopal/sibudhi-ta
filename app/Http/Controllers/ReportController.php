@@ -7,6 +7,7 @@ use App\Models\Report;
 use App\Models\Reporter;
 use App\Models\Service;
 use App\Models\ServiceType;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -14,7 +15,7 @@ use Inertia\Response;
 
 class ReportController extends Controller
 {
-    public function index(): Response
+    public function index(): JsonResponse
     {
         $reports = [];
 
@@ -26,9 +27,15 @@ class ReportController extends Controller
             $reports = Report::with(['service', 'service_type'])->where('user_id', Auth::user()->id)->get();
         }
 
-        return Inertia::render('Dashboard/Submission/page', [
-            'reports' => $reports,
-            'services' => Service::with('serviceTypes')->get(),
+        // return Inertia::render('Dashboard/Submission/page', [
+        //     'reports' => $reports,
+        //     'services' => Service::with('serviceTypes')->get(),
+        // ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'List Data Report',
+            'data' => $reports,
         ]);
     }
 
@@ -74,7 +81,8 @@ class ReportController extends Controller
         ]);
     }
 
-    public function update(Request $request, Report $report) {
+    public function update(Request $request, Report $report)
+    {
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -96,12 +104,13 @@ class ReportController extends Controller
                 return redirect()->back()->with('error', ['Gagal mengirim laporan', 'Harap masukkan data yang sesuai']);
             }
         }
-        
+
         $report->update($validatedData);
         return redirect()->back()->with('success', ['Berhasil memperbarui laporan', 'Laporan anda berhasil diperbarui!']);
     }
 
-    public function destroy(Report $report) {
+    public function destroy(Report $report)
+    {
         $report->delete();
 
         return redirect()->back()->with('success', ['Berhasil menghapus laporan', 'Laporan anda berhasil dihapus!']);
