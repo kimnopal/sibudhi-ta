@@ -41,10 +41,6 @@ class ReportController extends Controller
 
     public function store(Request $request)
     {
-        if (!Auth::user()) {
-            return redirect()->back()->with('error', ['Gagal mengirim laporan', 'Harap login terlebih dahulu']);
-        }
-
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -59,25 +55,47 @@ class ReportController extends Controller
 
         $service = Service::find($request['service_id']);
         if (!$service) {
-            return redirect()->back()->with('error', ['Gagal mengirim laporan', 'Harap masukkan data yang sesuai']);
+            return response()->json([
+                'status' => false,
+                'message' => "Service tidak tersedia",
+                'data' => [],
+            ]);
         }
 
         if ($request['service_type_id']) {
-            $serviceType = ServiceType::find($request['service_type_id']);
+            $serviceType = ServiceType::find($request['service_type_id'])->where('service_id', $request['service_id']);
             if (!$serviceType) {
-                return redirect()->back()->with('error', ['Gagal mengirim laporan', 'Harap masukkan data yang sesuai']);
+                return response()->json([
+                    'status' => false,
+                    'message' => "Service Type tidak tersedia",
+                    'data' => [],
+                ]);
             }
         }
 
-        Report::create($request->all());
-        return redirect()->back()->with('success', ['Berhasil mengirim laporan', 'Kami akan segera menghubungi anda!']);
+        $report = Report::create($request->all());
+        return response()->json([
+            'status' => true,
+            'message' => "Berhasil membuat report",
+            'data' => $report,
+        ])->setStatusCode(201);;
     }
 
     public function show($id)
     {
         $report = Report::with(['service', 'service_type'])->find($id);
-        return Inertia::render('Dashboard/Submission/show', [
-            'submission' => $report,
+        if (!$report) {
+            return response()->json([
+                'status' => false,
+                'message' => "Report tidak tersedia",
+                'data' => [],
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => "Data Report",
+            'data' => $report,
         ]);
     }
 
@@ -95,24 +113,40 @@ class ReportController extends Controller
 
         $service = Service::find($request['service_id']);
         if (!$service) {
-            return redirect()->back()->with('error', ['Gagal mengirim laporan', 'Harap masukkan data yang sesuai']);
+            return response()->json([
+                'status' => false,
+                'message' => "Service tidak tersedia",
+                'data' => [],
+            ]);
         }
 
         if ($request['service_type_id']) {
-            $serviceType = ServiceType::find($request['service_type_id']);
+            $serviceType = ServiceType::where('id', $request['service_type_id'])->where('service_id', $request["service_id"])->first();
             if (!$serviceType) {
-                return redirect()->back()->with('error', ['Gagal mengirim laporan', 'Harap masukkan data yang sesuai']);
+                return response()->json([
+                    'status' => false,
+                    'message' => "Service Type tidak tersedia",
+                    'data' => [],
+                ]);
             }
         }
 
         $report->update($validatedData);
-        return redirect()->back()->with('success', ['Berhasil memperbarui laporan', 'Laporan anda berhasil diperbarui!']);
+        return response()->json([
+            'status' => true,
+            'message' => "Berhasil mengupdate report",
+            'data' => $report,
+        ]);
     }
 
     public function destroy(Report $report)
     {
         $report->delete();
 
-        return redirect()->back()->with('success', ['Berhasil menghapus laporan', 'Laporan anda berhasil dihapus!']);
+        return response()->json([
+            'status' => true,
+            'message' => "Berhasil menghapus report",
+            'data' => $report,
+        ]);
     }
 }
