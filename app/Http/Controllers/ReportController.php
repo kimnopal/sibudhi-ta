@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeMessage;
 use App\Models\Advocate;
 use App\Models\Report;
 use App\Models\Reporter;
@@ -10,6 +11,7 @@ use App\Models\ServiceType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -29,13 +31,19 @@ class ReportController extends Controller
         $executionTime = $endTime - $startTime;
         $formattedTime = number_format($executionTime, 3, '.', '');
 
-        Log::info('Execution time: ' . $formattedTime . ' seconds');
-        Log::info('CPU Util: ' . number_format((float) exec(" grep 'cpu ' /proc/stat | awk '{print ($2+$4)*100/($2+$4+$5)}' "), 2));
-        Log::info('Memory Usage: ' . number_format((float) exec(" free | grep Mem | awk '{print $3/$2 * 100.0}' "), 2));
+        Log::channel('tugas_akhir')->info('Execution time: ' . $formattedTime . ' seconds');
+        Log::channel('tugas_akhir')->info('CPU Util: ' . number_format((float) exec(" grep 'cpu ' /proc/stat | awk '{print ($2+$4)*100/($2+$4+$5)}' "), 2));
+        Log::channel('tugas_akhir')->info('Memory Usage: ' . number_format((float) exec(" free | grep Mem | awk '{print $3/$2 * 100.0}' "), 2));
 
         return Inertia::render('Index', [
             'reports' => $reports,
         ]);
+    }
+
+    public function email()
+    {
+        Mail::to('naufalhakim366@gmail.com')->send(new WelcomeMessage());
+        return redirect(route('home'));
     }
 
     public function create()
