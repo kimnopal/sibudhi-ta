@@ -34,13 +34,30 @@ class ReportType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'Status of the reports'
             ],
+            'noHandphone' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'No Handphone of the reports',
+                'resolve' => function ($root, $args) {
+                    return $root->no_handphone;
+                },
+            ],
+            'description' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'Description of the reports'
+            ],
             'service' => [
                 'type' => Type::nonNull(GraphQL::type('Service')),
-                'description' => 'Service of reports'
+                'description' => 'Service of reports',
+                'resolve' => function ($root, $args) {
+                    return $root->service;
+                },
             ],
             'serviceType' => [
                 'type' => GraphQL::type('ServiceType'),
-                'description' => 'Service Type of reports'
+                'description' => 'Service Type of reports',
+                'resolve' => function ($root, $args) {
+                    return $root->service_type;
+                },
             ],
         ];
     }
