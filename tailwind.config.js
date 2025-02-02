@@ -12,16 +12,10 @@ module.exports = {
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.tsx",
+        "./node_modules/flyonui/dist/js/*.js"
     ],
     prefix: "",
     theme: {
-        container: {
-            center: true,
-            padding: "1.5rem",
-            screens: {
-                "2xl": "1400px",
-            },
-        },
         extend: {
             colors: {
                 border: "hsl(var(--border))",
@@ -84,7 +78,15 @@ module.exports = {
             fontFamily: {
                 sans: ["DM-Sans", ...defaultTheme.fontFamily.sans],
             },
+
+            container: {
+                center: true,
+                padding: "1.5rem",
+                screens: {
+                    "2xl": "1400px",
+                },
+            },
         },
     },
-    plugins: [require("tailwindcss-animate")],
+    plugins: [require("flyonui"), require("flyonui/plugin")],
 };

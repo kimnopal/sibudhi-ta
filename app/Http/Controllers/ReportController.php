@@ -9,6 +9,7 @@ use App\Models\Service;
 use App\Models\ServiceType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -16,28 +17,36 @@ class ReportController extends Controller
 {
     public function index(): Response
     {
-        $reports = [];
+        $startTime = microtime(true);
 
-        $advocate = Advocate::where('user_id', Auth::user()->id)->first();
-        if ($advocate) {
-            $reports = Report::with(['service', 'service_type'])->get();
-        } else {
-            // $reporter = Reporter::where('user_id', Auth::user()->id)->first();
-            $reports = Report::with(['service', 'service_type'])->where('user_id', Auth::user()->id)->get();
-        }
+        $reports = Report::leftJoin('services', 'reports.service_id', 'services.id')
+            ->leftJoin('service_types', 'reports.service_type_id', 'service_types.id')
+            ->leftJoin('users', 'reports.user_id', 'users.id')
+            ->select('reports.*', 'services.name as service_name', 'service_types.name as service_type_name', 'users.name as user_name')
+            ->get();
 
-        return Inertia::render('Dashboard/Submission/page', [
+        $endTime = microtime(true);
+        $executionTime = $endTime - $startTime;
+        $formattedTime = number_format($executionTime, 3, '.', '');
+
+        Log::info('Execution time: ' . $formattedTime . ' seconds');
+        Log::info('CPU Util: ' . number_format((float) exec(" grep 'cpu ' /proc/stat | awk '{print ($2+$4)*100/($2+$4+$5)}' "), 2));
+        Log::info('Memory Usage: ' . number_format((float) exec(" free | grep Mem | awk '{print $3/$2 * 100.0}' "), 2));
+
+        return Inertia::render('Index', [
             'reports' => $reports,
+        ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Create', [
             'services' => Service::with('serviceTypes')->get(),
         ]);
     }
 
     public function store(Request $request)
     {
-        if (!Auth::user()) {
-            return redirect()->back()->with('error', ['Gagal mengirim laporan', 'Harap login terlebih dahulu']);
-        }
-
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -48,7 +57,7 @@ class ReportController extends Controller
             'status' => 'nullable',
         ]);
 
-        $request['user_id'] = Auth::user()->id;
+        $request['user_id'] = 1;
 
         $service = Service::find($request['service_id']);
         if (!$service) {
@@ -63,18 +72,31 @@ class ReportController extends Controller
         }
 
         Report::create($request->all());
-        return redirect()->back()->with('success', ['Berhasil mengirim laporan', 'Kami akan segera menghubungi anda!']);
+        return redirect(route('home'));
     }
 
     public function show($id)
     {
-        $report = Report::with(['service', 'service_type'])->find($id);
-        return Inertia::render('Dashboard/Submission/show', [
-            'submission' => $report,
+        $report = Report::leftJoin('services', 'reports.service_id', 'services.id')
+            ->leftJoin('service_types', 'reports.service_type_id', 'service_types.id')
+            ->leftJoin('users', 'reports.user_id', 'users.id')
+            ->select('reports.*', 'services.name as service_name', 'service_types.name as service_type_name', 'users.name as user_name')
+            ->find($id);
+        return Inertia::render('Show', [
+            'report' => $report,
         ]);
     }
 
-    public function update(Request $request, Report $report) {
+    public function edit(Report $report)
+    {
+        return Inertia::render('Edit', [
+            'report' => $report,
+            'services' => Service::with('serviceTypes')->get(),
+        ]);
+    }
+
+    public function update(Request $request, Report $report)
+    {
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -96,12 +118,13 @@ class ReportController extends Controller
                 return redirect()->back()->with('error', ['Gagal mengirim laporan', 'Harap masukkan data yang sesuai']);
             }
         }
-        
+
         $report->update($validatedData);
-        return redirect()->back()->with('success', ['Berhasil memperbarui laporan', 'Laporan anda berhasil diperbarui!']);
+        return redirect(route('home'));
     }
 
-    public function destroy(Report $report) {
+    public function destroy(Report $report)
+    {
         $report->delete();
 
         return redirect()->back()->with('success', ['Berhasil menghapus laporan', 'Laporan anda berhasil dihapus!']);
