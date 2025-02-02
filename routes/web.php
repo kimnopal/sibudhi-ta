@@ -3,7 +3,7 @@
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [ReportController::class, 'index'])->name('home');
+Route::get('/reports', [ReportController::class, 'index'])->name('home');
 Route::get('/email', [ReportController::class, 'email'])->name('email');
 
 Route::get('/reports/create', [ReportController::class, 'create'])->name('report.create');
