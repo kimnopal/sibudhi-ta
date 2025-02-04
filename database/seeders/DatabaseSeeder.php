@@ -200,5 +200,7 @@ class DatabaseSeeder extends Seeder
             'no_handphone' => '081234567890',
             'description' => 'Test deskripsi laporan',
         ]);
+
+        Report::factory(1000)->create();
     }
 }
