@@ -25,7 +25,7 @@ class ReportController extends Controller
             ->leftJoin('service_types', 'reports.service_type_id', 'service_types.id')
             ->leftJoin('users', 'reports.user_id', 'users.id')
             ->select('reports.*', 'services.name as service_name', 'service_types.name as service_type_name', 'users.name as user_name')
-            ->get();
+            ->paginate(10);
 
         $endTime = microtime(true);
         $executionTime = $endTime - $startTime;

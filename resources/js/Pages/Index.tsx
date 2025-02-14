@@ -10,7 +10,7 @@ export default function Index({ reports }: any) {
                 <h1 className="text-base-content text-4xl mb-5">Data Laporan</h1>
                 <Link href={route('report.create')} className="btn btn-soft btn-primary" id='tambah-data'>Tambah Data</Link>
             </div>
-            <Table reports={reports} />
+            <Table reports={reports.data} />
         </main>
     )
 }
