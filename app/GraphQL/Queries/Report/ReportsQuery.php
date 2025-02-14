@@ -23,7 +23,7 @@ class ReportsQuery extends Query
     {
         $startTime = microtime(true);
 
-        $reports = Report::all();
+        $reports = Report::paginate(10);
 
         $endTime = microtime(true);
         $executionTime = $endTime - $startTime;
