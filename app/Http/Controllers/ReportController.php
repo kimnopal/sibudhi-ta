@@ -8,13 +8,13 @@ use App\Models\Report;
 use App\Models\Reporter;
 use App\Models\Service;
 use App\Models\ServiceType;
+use GrpcClientPHP\PHPClient;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Inertia\Inertia;
-use Inertia\Response;
+use Report\ReportsRequest;
 
 class ReportController extends Controller
 {
@@ -22,11 +22,43 @@ class ReportController extends Controller
     {
         $startTime = microtime(true);
 
-        $reports = Report::leftJoin('services', 'reports.service_id', 'services.id')
-            ->leftJoin('service_types', 'reports.service_type_id', 'service_types.id')
-            ->leftJoin('users', 'reports.user_id', 'users.id')
-            ->select('reports.*', 'services.name as service_name', 'service_types.name as service_type_name', 'users.name as user_name')
-            ->paginate(10);
+        $grpcPHPClient = new PHPClient();
+        list($response, $status) = $grpcPHPClient->client->ListReports(new ReportsRequest())->wait();
+
+        $reports = [];
+
+        if ($status->code !== \Grpc\STATUS_OK) {
+            var_dump($status);
+            echo "Error: " . $status->details . PHP_EOL;
+        } else {
+            foreach ($response->getReports() as $report) {
+                $newReport = [
+                    'id' => $report->getId(),
+                    'name' => $report->getName(),
+                    'email' => $report->getEmail(),
+                    'no_handphone' => $report->getNoHandphone(),
+                    'description' => $report->getDescription(),
+                    'status' => $report->getStatus(),
+                    'created_at' => $report->getCreatedAt(),
+                    'updated_at' => $report->getUpdatedAt(),
+                    'user' => [
+                        'id' => $report->getUser()->getId(),
+                        'name' => $report->getUser()->getName(),
+                        'email' => $report->getUser()->getEmail(),
+                    ],
+                    'service' => [
+                        'id' => $report->getService()->getId(),
+                        'name' => $report->getService()->getName(),
+                    ],
+                    'service_type' => [
+                        'id' => $report->getServiceType()->getId(),
+                        'name' => $report->getServiceType()->getName(),
+                    ],
+                ];
+
+                $reports[] = $newReport;
+            }
+        }
 
         $endTime = microtime(true);
         $executionTime = $endTime - $startTime;
