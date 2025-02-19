@@ -31,7 +31,7 @@ class ReportFactory extends Factory
             ],
         ];
 
-        $randomService = rand(0, 2);
+        $randomService = 1;
 
         return [
             'user_id' => rand(1, 5),
