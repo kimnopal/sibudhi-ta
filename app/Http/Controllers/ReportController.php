@@ -41,19 +41,12 @@ class ReportController extends Controller
                     'status' => $report->getStatus(),
                     'created_at' => $report->getCreatedAt(),
                     'updated_at' => $report->getUpdatedAt(),
-                    'user' => [
-                        'id' => $report->getUser()->getId(),
-                        'name' => $report->getUser()->getName(),
-                        'email' => $report->getUser()->getEmail(),
-                    ],
-                    'service' => [
-                        'id' => $report->getService()->getId(),
-                        'name' => $report->getService()->getName(),
-                    ],
-                    'service_type' => [
-                        'id' => $report->getServiceType()->getId(),
-                        'name' => $report->getServiceType()->getName(),
-                    ],
+                    'user_id' => $report->getUser()->getId(),
+                    'user_name' => $report->getUser()->getName(),
+                    'service_id' => $report->getService()->getId(),
+                    'service_name' => $report->getService()->getName(),
+                    'service_type_id' => $report->getServiceType()->getId(),
+                    'service_type_name' => $report->getServiceType()->getName(),
                 ];
 
                 $reports[] = $newReport;
